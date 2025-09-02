@@ -90,6 +90,7 @@
     "readMore": "더 보기",
     "pagination": {
       "totalPosts": "총 {count} 개의 게시물",
+      "totalPostsWithLang": "{lang} 총 {count} 개의 게시물",
       "pageInfo": "{current} / {total} 페이지",
       "noPosts": "게시물이 없습니다",
       "noPostsInCategory": "이 카테고리에는 아직 게시물이 없습니다. 나중에 다시 확인해주세요."

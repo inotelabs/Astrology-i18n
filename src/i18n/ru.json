@@ -117,6 +117,7 @@
     "readMore": "Читать далее",
     "pagination": {
       "totalPosts": "Всего {count} статей",
+      "totalPostsWithLang": "{lang} Всего {count} статей",
       "pageInfo": "Страница {current} из {total}",
       "noPosts": "Нет статей",
       "noPostsInCategory": "В этой категории пока нет статей. Пожалуйста, зайдите позже."

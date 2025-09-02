@@ -120,6 +120,7 @@
     "readMore": "Baca Selengkapnya",
     "pagination": {
       "totalPosts": "{count} artikel total",
+      "totalPostsWithLang": "{lang} {count} artikel total",
       "pageInfo": "Halaman {current} dari {total}",
       "noPosts": "Tidak ada artikel",
       "noPostsInCategory": "Belum ada artikel dalam kategori ini. Silakan periksa kembali nanti."

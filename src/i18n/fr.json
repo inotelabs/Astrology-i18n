@@ -123,6 +123,7 @@
     "readMore": "Lire la suite",
     "pagination": {
       "totalPosts": "{count} articles au total",
+      "totalPostsWithLang": "{lang} {count} articles au total",
       "pageInfo": "Page {current} sur {total}",
       "noPosts": "Aucun article",
       "noPostsInCategory": "Aucun article dans cette catégorie pour le moment. Revenez plus tard."

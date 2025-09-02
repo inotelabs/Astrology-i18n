@@ -48,7 +48,12 @@ const page = {
 };
 
 const title = t(lang, 'pages.posts.title') || t(lang, 'homepage.latestArticles');
-const description = t(lang, 'common.pagination.totalPosts', { count: total });
+const langName = t(lang, 'language.name');
+const description = t(lang, 'common.pagination.totalPostsWithLang', {
+  count: total,
+  langName,
+  lang: langName,
+});
 ---
 
 <LandingLayout lang={lang} title={title} description={description} canonical={Astro.url.href}>

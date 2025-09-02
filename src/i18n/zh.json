@@ -90,6 +90,7 @@
     "readMore": "阅读更多",
     "pagination": {
       "totalPosts": "共 {count} 篇文章",
+      "totalPostsWithLang": "{lang}共 {count} 篇文章",
       "pageInfo": "第 {current} 页，共 {total} 页",
       "noPosts": "暂无文章",
       "noPostsInCategory": "该分类下暂时没有文章，请稍后再来查看。"

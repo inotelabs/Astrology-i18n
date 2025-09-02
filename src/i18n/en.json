@@ -117,6 +117,7 @@
     "readMore": "Read More",
     "pagination": {
       "totalPosts": "{count} posts in total",
+      "totalPostsWithLang": "{lang} {count} posts in total",
       "pageInfo": "Page {current} of {total}",
       "noPosts": "No posts",
       "noPostsInCategory": "No posts in this category yet. Please check back later."

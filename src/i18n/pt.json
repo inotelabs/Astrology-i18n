@@ -123,6 +123,7 @@
     "readMore": "Ler mais",
     "pagination": {
       "totalPosts": "{count} artigos no total",
+      "totalPostsWithLang": "{lang} {count} artigos no total",
       "pageInfo": "Página {current} de {total}",
       "noPosts": "Nenhum artigo",
       "noPostsInCategory": "Ainda não há artigos nesta categoria. Por favor, volte mais tarde."

@@ -93,6 +93,7 @@
     "readMore": "続きを読む",
     "pagination": {
       "totalPosts": "全 {count} 件の投稿",
+      "totalPostsWithLang": "{lang} 全 {count} 件の投稿",
       "pageInfo": "{current} / {total} ページ",
       "noPosts": "投稿がありません",
       "noPostsInCategory": "このカテゴリにはまだ投稿がありません。後ほど再度ご確認ください。"
