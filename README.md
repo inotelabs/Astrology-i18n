@@ -194,4 +194,6 @@ Routing: after removing the language and extension, a post maps to `/{lang}/post
 
 This project is licensed under the [MIT License](LICENSE.txt).
 
-[![Star History Chart](https://api.star-history.com/svg?repos=inotelabs/astrology-i18n&type=Date)](https://www.star-history.com/#inotelabs/astrology-i18n&Date)
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=inotelabs/Astrology-i18n&type=Timeline)](https://www.star-history.com/#inotelabs/Astrology-i18n&Timeline)
