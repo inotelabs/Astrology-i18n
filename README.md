@@ -190,6 +190,6 @@ Routing: after removing the language and extension, a post maps to `/{lang}/post
 - Prefer Conventional Commits: `feat:`, `fix:`, `docs:`, `refactor:`, `style:`, `chore:`.
 - PRs: include a concise description, linked issues, before/after UI screenshots (if UI), and i18n impact (which locales affected).
 
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE.txt).
