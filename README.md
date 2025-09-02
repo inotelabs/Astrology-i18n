@@ -3,6 +3,7 @@
 # Astrology i18n — A Multilingual Astro Blog Theme
 
 [![Astro](https://img.shields.io/badge/Astro-5-BC52EE?logo=astro)](https://astro.build)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![Node](https://img.shields.io/badge/Node-%E2%89%A5%2020-339933?logo=node.js)](https://nodejs.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
