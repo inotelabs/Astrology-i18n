@@ -190,5 +190,8 @@ Routing: after removing the language and extension, a post maps to `/{lang}/post
 - Prefer Conventional Commits: `feat:`, `fix:`, `docs:`, `refactor:`, `style:`, `chore:`.
 - PRs: include a concise description, linked issues, before/after UI screenshots (if UI), and i18n impact (which locales affected).
 
-## License
-MIT © 2025 Astrology
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE.txt).
+
+[![Star History Chart](https://api.star-history.com/svg?repos=inotelabs/astrology-i18n&type=Date)](https://www.star-history.com/#inotelabs/astrology-i18n&Date)
