@@ -97,7 +97,7 @@
   },
   "pages": {
     "about": { "title": "Tentang" },
-    "author": { "title": "Penulis" },
+    "author": { "title": "Penulis", "writingActivity": "Aktivitas menulis" },
     "categories": {
       "title": "Kategori",
       "h2": "Jelajahi kategori",

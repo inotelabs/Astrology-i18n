@@ -94,7 +94,7 @@
   },
   "pages": {
     "about": { "title": "About" },
-    "author": { "title": "Author" },
+    "author": { "title": "Author", "writingActivity": "Writing Activity" },
     "categories": {
       "title": "Categories",
       "h2": "Browse Categories",

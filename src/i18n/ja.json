@@ -70,7 +70,7 @@
   },
   "pages": {
     "about": { "title": "概要" },
-    "author": { "title": "著者" },
+    "author": { "title": "著者", "writingActivity": "執筆活動" },
     "categories": {
       "title": "カテゴリ",
       "h2": "カテゴリを閲覧",

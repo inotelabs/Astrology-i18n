@@ -1,0 +1,43 @@
+---
+import LandingLayout from '@/layouts/LandingLayout.astro';
+import Prose from '@/features/Prose.astro';
+import Search from 'astro-pagefind/components/Search';
+import { t } from '@/utils/translations';
+import { DEFAULT_LANG, toAbsolute } from '@/utils/i18n';
+
+const lang = DEFAULT_LANG;
+const title = t(lang, 'notFound.title');
+const message = t(lang, 'notFound.message');
+const searchHint = t(lang, 'search.subtitle');
+---
+
+<LandingLayout lang={lang} title={title} description={message} canonical={null} noindex>
+  <Prose>
+    <p class="text-center text-sm text-neutral-500 dark:text-neutral-400">{searchHint}</p>
+  </Prose>
+
+  <div class="mt-6">
+    <div class="mx-auto w-full max-w-2xl">
+      <Search id="search-404" className="pagefind-ui w-full" uiOptions={{ showImages: false }} />
+    </div>
+  </div>
+
+  <div class="mt-6 text-center">
+    <div class="inline-flex flex-wrap items-center justify-center gap-2">
+      <a
+        href={toAbsolute(lang, '/')}
+        class="inline-flex items-center gap-2 rounded-md border border-neutral-200/70 px-3 py-1.5 text-sm text-neutral-700 hover:bg-neutral-50 dark:border-neutral-800/70 dark:text-neutral-300 dark:hover:bg-neutral-800"
+      >
+        <span aria-hidden>←</span>
+        <span>{t(lang, 'notFound.backToHome')}</span>
+      </a>
+      <a
+        href={toAbsolute(lang, '/')}
+        class="inline-flex items-center gap-2 rounded-md border border-neutral-200/70 px-3 py-1.5 text-sm text-neutral-700 hover:bg-neutral-50 dark:border-neutral-800/70 dark:text-neutral-300 dark:hover:bg-neutral-800"
+      >
+        <span aria-hidden>🧭</span>
+        <span>{t(lang, 'notFound.browsePosts')}</span>
+      </a>
+    </div>
+  </div>
+</LandingLayout>

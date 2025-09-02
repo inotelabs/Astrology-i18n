@@ -12,9 +12,7 @@ const resolvedLang = ((Astro.currentLocale as string | undefined) ??
 const isCJK = ['zh', 'ja', 'ko'].includes(resolvedLang);
 const containerClass = [
   'prose dark:prose-invert mx-auto',
-  isCJK
-    ? 'prose-p:text-justify prose-li:text-justify'
-    : 'prose-p:text-left prose-li:text-left',
+  isCJK ? 'prose-p:text-justify prose-li:text-justify' : 'prose-p:text-left prose-li:text-left',
 ].join(' ');
 ---
 

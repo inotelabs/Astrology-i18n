@@ -1,8 +1,8 @@
 ---
-import type { Lang } from "@/utils/i18n";
-import { SUPPORTED_LANGS, DEFAULT_LANG, toAbsolute } from "@/utils/i18n";
-import { t } from "@/utils/translations";
-import { SEO } from "astro-seo";
+import type { Lang } from '@/utils/i18n';
+import { SUPPORTED_LANGS, DEFAULT_LANG, toAbsolute } from '@/utils/i18n';
+import { t } from '@/utils/translations';
+import { SEO } from 'astro-seo';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
 interface Props {
@@ -39,7 +39,9 @@ const {
   tags = [],
 } = Astro.props as Props;
 
-const resolvedLang = ((Astro.currentLocale as Lang | undefined) ?? (langProp as Lang) ?? 'zh') as Lang;
+const resolvedLang = ((Astro.currentLocale as Lang | undefined) ??
+  (langProp as Lang) ??
+  'zh') as Lang;
 
 const siteName = t(resolvedLang, 'site.name');
 const titleTemplate = t(resolvedLang, 'site.titleTemplate');
@@ -50,19 +52,23 @@ const keywordsStr = Array.isArray(keywords) ? keywords.join(', ') : keywords;
 const rssPath = getRelativeLocaleUrl(resolvedLang, '/rss.xml').replace(/(\.xml)\/$/, '$1');
 const rssURL = new URL(rssPath, Astro.site!).href;
 
-const providedSrc = typeof image === 'string'
-  ? image
-  : (image && typeof (image as any).src === 'string' ? (image as any).src : undefined);
+const providedSrc =
+  typeof image === 'string'
+    ? image
+    : image && typeof (image as any).src === 'string'
+      ? (image as any).src
+      : undefined;
 const DEFAULT_OG = '/open-graph.webp';
 const imageSrc = providedSrc || DEFAULT_OG;
-const absImage = (imageSrc.startsWith('http://') || imageSrc.startsWith('https://'))
-  ? imageSrc
-  : new URL(imageSrc, Astro.site!).href;
+const absImage =
+  imageSrc.startsWith('http://') || imageSrc.startsWith('https://')
+    ? imageSrc
+    : new URL(imageSrc, Astro.site!).href;
 
 const absAuthorUrl = authorUrl
-  ? (authorUrl.startsWith('http://') || authorUrl.startsWith('https://')
-      ? authorUrl
-      : new URL(authorUrl, Astro.site!).href)
+  ? authorUrl.startsWith('http://') || authorUrl.startsWith('https://')
+    ? authorUrl
+    : new URL(authorUrl, Astro.site!).href
   : undefined;
 
 const isArticle = Boolean(publishedTime);
@@ -80,7 +86,9 @@ const ogLocaleMap: Record<string, string> = {
   id: 'id_ID',
 };
 const ogLocale = ogLocaleMap[resolvedLang] || 'en_US';
-const ogAlternateLocales = SUPPORTED_LANGS.filter((l) => l !== resolvedLang).map((l) => ogLocaleMap[l] || 'en_US');
+const ogAlternateLocales = SUPPORTED_LANGS.filter((l) => l !== resolvedLang).map(
+  (l) => ogLocaleMap[l] || 'en_US',
+);
 
 const languageAlternates = SUPPORTED_LANGS.map((l) => ({
   hrefLang: l,
@@ -95,10 +103,7 @@ const seoProps: any = {
   description: metaDescription,
   canonical: canonical ?? undefined,
   noindex: !!noindex,
-  languageAlternates: [
-    ...languageAlternates,
-    { hrefLang: 'x-default', href: xDefaultHref },
-  ],
+  languageAlternates: [...languageAlternates, { hrefLang: 'x-default', href: xDefaultHref }],
   openGraph: {
     basic: {
       title: title || siteName,
@@ -117,7 +122,7 @@ const seoProps: any = {
           article: {
             ...(publishedTime ? { publishedTime: new Date(publishedTime).toISOString() } : {}),
             ...(modifiedTime ? { modifiedTime: new Date(modifiedTime).toISOString() } : {}),
-            ...((absAuthorUrl || authorName)
+            ...(absAuthorUrl || authorName
               ? { authors: [absAuthorUrl ?? (authorName as string)] }
               : {}),
             ...(section ? { section } : {}),
@@ -152,6 +157,7 @@ const seoProps: any = {
   },
 } as const;
 ---
+
 <script is:inline>
   try {
     const stored = localStorage.getItem('theme');
@@ -166,33 +172,39 @@ const seoProps: any = {
       document.documentElement.classList.toggle('dark', prefersDark);
       document.documentElement.setAttribute('data-theme', 'system');
     }
-  } catch (e) {
-  }
-  </script>
+  } catch (e) {}
+</script>
 
 <SEO {...seoProps} />
 
-{(() => {
-  const canonicalURL = (canonical || Astro.url.href);
-  const pageTitle = title ? titleTemplate.replace('%s', title) : siteName;
-  const ld: any = {
-    '@context': 'https://schema.org',
-    '@type': isArticle ? 'Article' : 'WebPage',
-    inLanguage: resolvedLang,
-    name: pageTitle,
-    url: canonicalURL,
-    description: metaDescription,
-    mainEntityOfPage: canonicalURL,
-  };
-  if (absImage) ld.image = absImage;
-  if (isArticle) {
-    if (title) ld.headline = title;
-    if (publishedTime) ld.datePublished = new Date(publishedTime).toISOString();
-    if (modifiedTime) ld.dateModified = new Date(modifiedTime).toISOString();
-    ld.publisher = { '@type': 'Organization', name: siteName };
-    if (authorName) ld.author = { '@type': 'Person', name: authorName, ...(absAuthorUrl ? { url: absAuthorUrl } : {}) };
-    if (section) ld.articleSection = section;
-    if (Array.isArray(tags) && tags.length) ld.keywords = tags.join(', ');
-  }
-  return <script type="application/ld+json" is:inline set:html={JSON.stringify(ld)} />;
-})()}
+{
+  (() => {
+    const canonicalURL = canonical || Astro.url.href;
+    const pageTitle = title ? titleTemplate.replace('%s', title) : siteName;
+    const ld: any = {
+      '@context': 'https://schema.org',
+      '@type': isArticle ? 'Article' : 'WebPage',
+      inLanguage: resolvedLang,
+      name: pageTitle,
+      url: canonicalURL,
+      description: metaDescription,
+      mainEntityOfPage: canonicalURL,
+    };
+    if (absImage) ld.image = absImage;
+    if (isArticle) {
+      if (title) ld.headline = title;
+      if (publishedTime) ld.datePublished = new Date(publishedTime).toISOString();
+      if (modifiedTime) ld.dateModified = new Date(modifiedTime).toISOString();
+      ld.publisher = { '@type': 'Organization', name: siteName };
+      if (authorName)
+        ld.author = {
+          '@type': 'Person',
+          name: authorName,
+          ...(absAuthorUrl ? { url: absAuthorUrl } : {}),
+        };
+      if (section) ld.articleSection = section;
+      if (Array.isArray(tags) && tags.length) ld.keywords = tags.join(', ');
+    }
+    return <script type="application/ld+json" is:inline set:html={JSON.stringify(ld)} />;
+  })()
+}

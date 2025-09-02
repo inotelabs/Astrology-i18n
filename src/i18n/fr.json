@@ -100,7 +100,7 @@
   },
   "pages": {
     "about": { "title": "À propos" },
-    "author": { "title": "Auteur" },
+    "author": { "title": "Auteur", "writingActivity": "Activité d'écriture" },
     "categories": {
       "title": "Catégories",
       "h2": "Parcourir les catégories",

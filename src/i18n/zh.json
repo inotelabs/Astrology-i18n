@@ -42,7 +42,11 @@
     "management": "管理"
   },
   "headings": {
-    "home": { "title": "首页", "h1": "Astrology", "h2": "在生活的海洋，创业的波涛和投资的迷雾中前行" },
+    "home": {
+      "title": "首页",
+      "h1": "Astrology",
+      "h2": "在生活的海洋，创业的波涛和投资的迷雾中前行"
+    },
     "build": { "h1": "创业", "h2": "从零到一的道路，洞察机遇与挑战" },
     "innovation": { "h1": "创新", "h2": "技术驱动与思维突破，寻找改变世界的力量" },
     "model": { "h1": "模式", "h2": "从案例到趋势，探索可复制的增长逻辑" },
@@ -63,7 +67,7 @@
   },
   "pages": {
     "about": { "title": "关于" },
-    "author": { "title": "作者" },
+    "author": { "title": "作者", "writingActivity": "写作活动" },
     "categories": {
       "title": "分类",
       "h2": "浏览分类",

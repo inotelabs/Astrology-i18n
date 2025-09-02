@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import LandingLayout from '@/layouts/LandingLayout.astro';
 import LatestList from '@/widgets/LatestList.astro';
+import GitHubActivityCalendar from '@/widgets/GitHubActivityCalendar.astro';
 import { Icon } from 'astro-icon/components';
 import type { Lang } from '@/utils/i18n';
 import { DEFAULT_LANG, SUPPORTED_LANGS } from '@/utils/i18n';
@@ -33,6 +34,25 @@ function iconFor(label: string, url: string): string {
   if (k === 'website' || /^https?:\/\/.*/.test(url)) return 'mdi:link-variant';
   return 'mdi:link-variant';
 }
+function githubUsernameFromSocials(
+  list: Array<{ label: string; url: string }>,
+): string | undefined {
+  for (const s of list) {
+    const label = String(s.label || '').toLowerCase();
+    const url = String(s.url || '');
+    if (label === 'github' || /https?:\/\/([^\/]*\.)?github\.com\//i.test(url)) {
+      try {
+        const u = new URL(url.startsWith('http') ? url : `https://github.com/${url}`);
+        const seg = (u.pathname || '/').split('/').filter(Boolean)[0];
+        if (seg) return seg;
+      } catch {}
+      const m = url.match(/^@?([A-Za-z0-9-]{1,39})$/);
+      if (m) return m[1];
+    }
+  }
+  return undefined;
+}
+const githubUsername = githubUsernameFromSocials(socials);
 ---
 
 <LandingLayout
@@ -44,9 +64,7 @@ function iconFor(label: string, url: string): string {
   imageAlt={authorName}
   centered={false}
 >
-  <section
-    class="rounded-xl border border-neutral-200/70 bg-white/70 p-5 shadow-sm backdrop-blur sm:p-6 dark:border-neutral-800/70 dark:bg-neutral-900/70"
-  >
+  <section class="rounded-xl bg-white/70 p-5 shadow-sm backdrop-blur sm:p-6 dark:bg-neutral-900/70">
     <div class="flex flex-col items-center gap-6 sm:flex-row sm:items-start sm:gap-6">
       <div class="shrink-0">
         <OptimizedPicture
@@ -86,6 +104,17 @@ function iconFor(label: string, url: string): string {
       </div>
     </div>
   </section>
+
+  {
+    githubUsername && (
+      <section class="mt-10 rounded-xl bg-white/70 p-5 shadow-sm backdrop-blur sm:p-6 dark:bg-neutral-900/70">
+        <h3 class="mb-3 text-base font-medium text-neutral-600 dark:text-neutral-300">
+          {t(lang, 'pages.author.writingActivity')}
+        </h3>
+        <GitHubActivityCalendar username={githubUsername} />
+      </section>
+    )
+  }
 
   <LatestList lang={lang} class="mt-10" />
 </LandingLayout>

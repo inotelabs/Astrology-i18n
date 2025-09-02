@@ -67,7 +67,7 @@
   },
   "pages": {
     "about": { "title": "소개" },
-    "author": { "title": "저자" },
+    "author": { "title": "저자", "writingActivity": "글쓰기 활동" },
     "categories": {
       "title": "카테고리",
       "h2": "카테고리 둘러보기",

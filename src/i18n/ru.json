@@ -94,7 +94,7 @@
   },
   "pages": {
     "about": { "title": "О нас" },
-    "author": { "title": "Автор" },
+    "author": { "title": "Автор", "writingActivity": "Писательская активность" },
     "categories": {
       "title": "Категории",
       "h2": "Обзор категорий",
