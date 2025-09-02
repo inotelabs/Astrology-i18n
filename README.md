@@ -32,16 +32,16 @@ Scores vary by content and network; treat as indicative.
 - Using the theme? Open an issue titled "Showcase Submission" with your site URL and a screenshot to be featured.
 
 ## Features
-- 🌐 Internationalization: Language‑prefixed routes at `/[lang]/` (default `zh`, also prefixed), centralized UI dictionaries in `src/i18n/*.json`, hreflang and multilingual sitemap.
-- 🗂️ Content Collections: Post/Page/Author collections in `src/content.config.ts`; frontmatter validation; last‑modified time from Git.
-- ✍️ MDX Support: `@astrojs/mdx` enabled across content and pages.
-- 🖼️⚡ Images & Performance: Local assets optimized via `astro:assets`; remote images don’t infer size by default (pass `width`/`height` or use local assets).
-- ⚡ Performance: Link prefetching enabled (`prefetch.defaultStrategy = 'viewport'`).
-- 🔎 Search: `astro-pagefind` with `/[lang]/search`.
-- 📈 SEO: `astro-seo` + JSON‑LD; per‑language RSS at `/[lang]/rss.xml`; `robots.txt` and `@astrojs/sitemap`.
-- 🎨 Styling & Components: Tailwind CSS v4 (+ Typography); multiple cards/layouts; light/dark toggle and auto detect; icon system via `astro-icon` (Tabler/MDI sets included).
-- 📊 Analytics‑ready: Partytown integration forwarding `dataLayer.push` (no third‑party scripts enabled by default).
-- 🧩 Built‑ins: pagination; tags & categories pages; author page; 404 page.
+- 🌐 **Internationalization**: Language‑prefixed routes at `/[lang]/` (default `zh`, also prefixed), centralized UI dictionaries in `src/i18n/*.json`, hreflang and multilingual sitemap.
+- 🗂️ **Content Collections**: Post/Page/Author collections in `src/content.config.ts`; frontmatter validation; last‑modified time from Git.
+- ✍️ **MDX Support**: `@astrojs/mdx` enabled across content and pages.
+- 🖼️ **Images & Performance**: Local assets optimized via `astro:assets`; remote images don’t infer size by default (pass `width`/`height` or use local assets).
+- ⚡ **Performance**: Link prefetching enabled (`prefetch.defaultStrategy = 'viewport'`).
+- 🔎 **Search**: `astro-pagefind` with `/[lang]/search`.
+- 📈 **SEO**: `astro-seo` + JSON‑LD; per‑language RSS at `/[lang]/rss.xml`; `robots.txt` and `@astrojs/sitemap`.
+- 🎨 **Styling & Components**: Tailwind CSS v4 (+ Typography); multiple cards/layouts; light/dark toggle and auto detect; icon system via `astro-icon` (Tabler/MDI sets included).
+- 📊 **Analytics‑ready**: Partytown integration forwarding `dataLayer.push` (no third‑party scripts enabled by default).
+- 🧩 **Built‑ins**: pagination; tags & categories pages; author page; 404 page.
 
 ## Quick Start
 Requirements: Node.js 20+, pnpm or npm.
@@ -101,7 +101,6 @@ pnpm run preview
 │  ├─ styles/                     # global.css
 │  ├─ icons/                      # svg icons
 │  └─ content.config.ts           # content collections
-└─ AGENTS.md
 ```
 
 ## Authoring Content (Frontmatter)
