@@ -47,7 +47,7 @@ const page = {
   },
 };
 
-const title = t(lang, 'homepage.latestArticles');
+const title = t(lang, 'pages.posts.title') || t(lang, 'homepage.latestArticles');
 const description = t(lang, 'common.pagination.totalPosts', { count: total });
 ---
 

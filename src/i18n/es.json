@@ -104,6 +104,7 @@
   "pages": {
     "about": { "title": "Acerca de" },
     "author": { "title": "Autor", "writingActivity": "Actividad de escritura" },
+    "posts": { "title": "Todos los artículos" },
     "categories": {
       "title": "Categorías",
       "h2": "Explorar categorías",

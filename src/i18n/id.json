@@ -98,6 +98,7 @@
   "pages": {
     "about": { "title": "Tentang" },
     "author": { "title": "Penulis", "writingActivity": "Aktivitas menulis" },
+    "posts": { "title": "Semua Artikel" },
     "categories": {
       "title": "Kategori",
       "h2": "Jelajahi kategori",

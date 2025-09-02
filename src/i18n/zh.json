@@ -68,6 +68,7 @@
   "pages": {
     "about": { "title": "关于" },
     "author": { "title": "作者", "writingActivity": "写作活动" },
+    "posts": { "title": "所有文章" },
     "categories": {
       "title": "分类",
       "h2": "浏览分类",
