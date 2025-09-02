@@ -3,7 +3,7 @@
 # Astrology i18n — A Multilingual Astro Blog Theme
 
 [![Astro](https://img.shields.io/badge/Astro-5-BC52EE?logo=astro)](https://astro.build)
-[![Node](https://img.shields.io/badge/Node-%E2%89%A5%2018-339933?logo=node.js)](https://nodejs.org)
+[![Node](https://img.shields.io/badge/Node-%E2%89%A5%2020-339933?logo=node.js)](https://nodejs.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 A multilingual photo-and-prose theme built with Astro 5. Ships with 10 languages, per‑locale routes and dictionaries, SEO/JSON‑LD, per‑locale RSS, on‑site search, responsive images, and auto dark/light themes — ready for global storytelling.
@@ -43,7 +43,7 @@ Scores vary by content and network; treat as indicative.
 - 🧩 Built‑ins: pagination; tags & categories pages; author page; 404 page.
 
 ## Quick Start
-Requirements: Node.js 18+ (20+ recommended), pnpm or npm.
+Requirements: Node.js 20+, pnpm or npm.
 
 ```bash
 # Install
