@@ -1,0 +1,52 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import type { Lang } from '@/utils/i18n';
+import PostCardCover from '@/cards/PostCardCover.astro';
+import { t } from '@/utils/translations';
+
+interface Props {
+  lang: Lang;
+  category: string;
+  excludeId?: string;
+  limit?: number;
+  showTitle?: boolean;
+}
+
+const { lang, category, excludeId, limit = 3, showTitle = true } = Astro.props as Props;
+
+const all = await getCollection(
+  'post',
+  (p) =>
+    !p.data.draft && p.data.locales === lang && p.data.category === category && p.id !== excludeId,
+);
+const posts = all
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .slice(0, limit);
+
+function toUrl(entry: CollectionEntry<'post'>, lang: Lang): string {
+  const idWithoutExt = entry.id.replace(/\.(md|mdx|markdown)$/i, '');
+  const slug = idWithoutExt.replace(new RegExp(`^${lang}/`), '');
+  return `/${lang}/posts/${slug}/`;
+}
+---
+
+{
+  posts.length > 0 && (
+    <section class="mt-10">
+      {showTitle && <h2 class="sr-only">{t(lang, 'post.relatedPosts')}</h2>}
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
+        {posts.map((p) => (
+          <PostCardCover
+            href={toUrl(p, lang)}
+            imageSrc={p.data.heroImage}
+            imageAlt={p.data.heroImageAlt}
+            title={p.data.title}
+            date={p.data.pubDate}
+            category={p.data.category}
+            lang={lang}
+          />
+        ))}
+      </div>
+    </section>
+  )
+}

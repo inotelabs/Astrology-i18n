@@ -1,0 +1,159 @@
+{
+  "site": {
+    "name": "Astrology",
+    "titleTemplate": "%s · Astrology",
+    "description": "Vorwärts durch den Ozean des Lebens, die Wellen des Unternehmertums und den Nebel der Investitionen",
+    "twitter": {
+      "site": "@inotelabs",
+      "creator": "@Astro"
+    }
+  },
+  "language": {
+    "name": "Deutsch",
+    "switch": "Sprache wechseln",
+    "current": "Aktuelle Sprache"
+  },
+  "theme": {
+    "toggle": "Design wechseln",
+    "light": "Hell",
+    "dark": "Dunkel",
+    "system": "Systemstandard"
+  },
+  "dateFormat": "D. MMM YYYY",
+  "post": {
+    "publishedAt": "Veröffentlicht am",
+    "modifiedAt": "Geändert am",
+    "relatedPosts": "Ähnliche Beiträge"
+  },
+  "categories": {
+    "life": "Leben",
+    "invest": "Investieren",
+    "build": "Aufbauen"
+  },
+  "tags": {
+    "reflect": "Nachdenken",
+    "media": "Medien",
+    "roam": "Umherstreifen",
+    "risk": "Risiko",
+    "strategy": "Strategie",
+    "allocation": "Allokation",
+    "innovation": "Innovation",
+    "model": "Modell",
+    "management": "Management"
+  },
+  "headings": {
+    "home": {
+      "title": "Startseite",
+      "h1": "Astrology",
+      "h2": "Vorwärts durch den Ozean des Lebens, die Wellen des Unternehmertums und den Nebel der Investitionen"
+    },
+    "build": {
+      "h1": "Aufbauen",
+      "h2": "Der Weg von null auf eins – Chancen und Herausforderungen erkennen"
+    },
+    "innovation": {
+      "h1": "Innovation",
+      "h2": "Technologiegetrieben und mit Durchbruchsdenken – die Kraft suchen, die die Welt verändert"
+    },
+    "model": {
+      "h1": "Modell",
+      "h2": "Von Fällen zu Trends – wiederholbare Wachstumslogik erkunden"
+    },
+    "management": {
+      "h1": "Management",
+      "h2": "Strategie und Umsetzung balancieren – eine effiziente Organisation und Teamkultur aufbauen"
+    },
+    "invest": {
+      "h1": "Investieren",
+      "h2": "Die Kunst, Wert zu erfassen – die doppelte Logik von Kapital und Industrie"
+    },
+    "risk": {
+      "h1": "Risiko",
+      "h2": "Gewissheit in der Ungewissheit – Risiken wirksam erkennen und absichern"
+    },
+    "strategy": {
+      "h1": "Strategie",
+      "h2": "Im Wettbewerb voranschreiten – dauerhafte Vorteile und Schutzgräben aufbauen"
+    },
+    "allocation": {
+      "h1": "Allokation",
+      "h2": "Die optimale Nutzung von Ressourcen – Kapital, Zeit und Energie ausbalancieren"
+    },
+    "life": {
+      "h1": "Leben",
+      "h2": "Über Effizienz und Output hinaus – nach Balance, Gesundheit und Glück streben"
+    },
+    "reflect": {
+      "h1": "Nachdenken",
+      "h2": "Tempo drosseln und tief über zukünftige Möglichkeiten nachdenken"
+    },
+    "media": {
+      "h1": "Medien",
+      "h2": "Vom Lesen zur Beobachtung – fachübergreifende Inspiration und Einsichten gewinnen"
+    },
+    "roam": {
+      "h1": "Umherstreifen",
+      "h2": "Unterwegs die echte Verbindung zwischen Mensch und Welt spüren"
+    }
+  },
+  "navigation": {
+    "build": "Aufbauen",
+    "invest": "Investieren",
+    "life": "Leben"
+  },
+  "pages": {
+    "about": { "title": "Über" },
+    "author": { "title": "Autor" },
+    "categories": {
+      "title": "Kategorien",
+      "h2": "Alle Kategorien",
+      "description": "Themen erkunden und Beiträge nach Kategorien finden."
+    },
+    "tags": {
+      "title": "Tags",
+      "h2": "Alle Tags",
+      "description": "Themen erkunden und Beiträge nach Tags finden."
+    }
+  },
+  "common": {
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "notFound": "Nicht gefunden",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Zurück",
+    "readMore": "Weiterlesen",
+    "pagination": {
+      "totalPosts": "{count} Beiträge insgesamt",
+      "pageInfo": "Seite {current} von {total}",
+      "noPosts": "Keine Beiträge",
+      "noPostsInCategory": "Es gibt noch keine Beiträge in dieser Kategorie. Bitte schauen Sie später noch einmal vorbei."
+    }
+  },
+  "footer": {
+    "copyright": "Urheberrecht",
+    "allRightsReserved": "Alle Rechte vorbehalten",
+    "more": "Mehr",
+    "author": "Autor",
+    "categories": "Kategorien",
+    "tags": "Tags",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "termsOfService": "Nutzungsbedingungen",
+    "contactUs": "Kontaktieren Sie uns"
+  },
+  "homepage": {
+    "featuredPosts": "Hervorgehobene Beiträge",
+    "topArticles": "Beliebte Artikel",
+    "latestArticles": "Neueste Artikel"
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "message": "Entschuldigung, die von Ihnen gesuchte Seite existiert nicht oder wurde entfernt.",
+    "backToHome": "Zurück zur Startseite",
+    "browsePosts": "Beiträge durchsuchen"
+  },
+  "search": {
+    "title": "Suche",
+    "subtitle": "Suchen Sie nach Inhalten, die Sie interessieren"
+  }
+}

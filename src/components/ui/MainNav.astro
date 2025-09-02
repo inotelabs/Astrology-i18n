@@ -1,0 +1,40 @@
+---
+import type { Lang } from '@/utils/i18n';
+import { t } from '@/utils/translations';
+import { NAV_ITEMS } from '@/utils/navItems';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+interface Props {
+  lang?: Lang;
+  class?: string;
+}
+const { lang, class: className } = Astro.props as Props;
+const resolvedLang = ((Astro.currentLocale as Lang | undefined) ??
+  (lang as Lang | undefined) ??
+  'zh') as Lang;
+---
+
+<nav class={`hidden lg:flex items-center gap-6 ${className ?? ''}`.trim()}>
+  {
+    NAV_ITEMS.map((item) => (
+      <div class="group relative">
+        <a
+          href={getRelativeLocaleUrl(resolvedLang, `/category/${item.key}`)}
+          class="inline-flex items-center gap-1 py-2 text-sm font-semibold text-neutral-700 no-underline hover:text-neutral-900 hover:no-underline focus:no-underline dark:text-neutral-300 dark:hover:text-white"
+        >
+          <span>{t(resolvedLang, `navigation.${item.key}`)}</span>
+        </a>
+        <div class="pointer-events-none absolute top-full left-1/2 z-50 hidden min-w-36 -translate-x-1/2 rounded-md border border-neutral-200/70 bg-white py-1.5 shadow-lg group-hover:pointer-events-auto group-hover:block dark:border-neutral-800/70 dark:bg-neutral-900">
+          {item.tags.map((tag) => (
+            <a
+              href={getRelativeLocaleUrl(resolvedLang, `/tags/${tag}`)}
+              class="block px-2.5 py-1.5 text-sm text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800"
+            >
+              {t(resolvedLang, `tags.${tag}`)}
+            </a>
+          ))}
+        </div>
+      </div>
+    ))
+  }
+</nav>

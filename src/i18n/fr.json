@@ -1,0 +1,156 @@
+{
+  "site": {
+    "name": "Astrology",
+    "titleTemplate": "%s · Astrology",
+    "description": "Avancer dans l’océan de la vie, les vagues de l’entrepreneuriat et les brumes de l’investissement",
+    "twitter": {
+      "site": "@inotelabs",
+      "creator": "@Astro"
+    }
+  },
+  "language": {
+    "name": "Français",
+    "switch": "Changer de langue",
+    "current": "Langue actuelle"
+  },
+  "theme": {
+    "toggle": "Changer de thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Thème système"
+  },
+  "dateFormat": "D MMM YYYY",
+  "post": {
+    "publishedAt": "Publié le",
+    "modifiedAt": "Modifié le",
+    "relatedPosts": "Articles similaires"
+  },
+  "categories": {
+    "life": "Vie",
+    "invest": "Investir",
+    "build": "Construire"
+  },
+  "tags": {
+    "reflect": "réfléchir",
+    "media": "médias",
+    "roam": "errer",
+    "risk": "risque",
+    "strategy": "stratégie",
+    "allocation": "allocation",
+    "innovation": "innovation",
+    "model": "modèle",
+    "management": "gestion"
+  },
+  "headings": {
+    "home": {
+      "title": "Accueil",
+      "h1": "Astrology",
+      "h2": "Avancer dans l'océan de la vie, les vagues de l'entrepreneuriat et le brouillard de l'investissement"
+    },
+    "build": { "h1": "Construire", "h2": "De zéro à un, détecter les opportunités et les défis" },
+    "innovation": {
+      "h1": "Innovation",
+      "h2": "Portée par la technologie et la pensée disruptive, chercher la force de changer le monde"
+    },
+    "model": {
+      "h1": "Modèle",
+      "h2": "Des cas aux tendances, explorer une logique de croissance reproductible"
+    },
+    "management": {
+      "h1": "Gestion",
+      "h2": "Équilibrer stratégie et exécution pour bâtir une organisation efficace et une culture d'équipe"
+    },
+    "invest": {
+      "h1": "Investir",
+      "h2": "L’art de capter la valeur, la logique duale du capital et de l’industrie"
+    },
+    "risk": {
+      "h1": "Risque",
+      "h2": "La certitude dans l’incertitude : identifier et se couvrir efficacement"
+    },
+    "strategy": {
+      "h1": "Stratégie",
+      "h2": "Avancer dans le jeu, construire des avantages durables et des douves"
+    },
+    "allocation": {
+      "h1": "Allocation",
+      "h2": "La meilleure utilisation des ressources : équilibre entre capital, temps et énergie"
+    },
+    "life": {
+      "h1": "Vie",
+      "h2": "Au-delà de l’efficacité et du rendement : rechercher l’équilibre, la santé et le bonheur"
+    },
+    "reflect": {
+      "h1": "Réflexion",
+      "h2": "Ralentir et réfléchir en profondeur aux possibles futurs"
+    },
+    "media": {
+      "h1": "Médias",
+      "h2": "De la lecture à l’observation, puiser des inspirations et des éclairages transversaux"
+    },
+    "roam": {
+      "h1": "Errer",
+      "h2": "En chemin, ressentir le lien authentique entre les personnes et le monde"
+    }
+  },
+  "navigation": {
+    "build": "Construire",
+    "invest": "Investir",
+    "life": "Vie"
+  },
+  "pages": {
+    "about": { "title": "À propos" },
+    "author": { "title": "Auteur" },
+    "categories": {
+      "title": "Catégories",
+      "h2": "Parcourir les catégories",
+      "description": "Explorez les thèmes et trouvez des articles par catégorie."
+    },
+    "tags": {
+      "title": "Étiquettes",
+      "h2": "Parcourir les étiquettes",
+      "description": "Explorez les thèmes et trouvez des articles par étiquette."
+    }
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "notFound": "Non trouvé",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "readMore": "Lire la suite",
+    "pagination": {
+      "totalPosts": "{count} articles au total",
+      "pageInfo": "Page {current} sur {total}",
+      "noPosts": "Aucun article",
+      "noPostsInCategory": "Aucun article dans cette catégorie pour le moment. Revenez plus tard."
+    }
+  },
+  "footer": {
+    "copyright": "Droits d'auteur",
+    "allRightsReserved": "Tous droits réservés",
+    "more": "Plus",
+    "author": "Auteur",
+    "categories": "Catégories",
+    "tags": "Tags",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsOfService": "Conditions d'utilisation",
+    "contactUs": "Nous contacter"
+  },
+  "homepage": {
+    "featuredPosts": "Articles en vedette",
+    "topArticles": "Articles populaires",
+    "latestArticles": "Derniers articles"
+  },
+  "notFound": {
+    "title": "Page non trouvée",
+    "message": "Désolé, la page que vous recherchez n'existe pas ou a été supprimée.",
+    "backToHome": "Retour à l'accueil",
+    "browsePosts": "Parcourir les articles"
+  },
+  "search": {
+    "title": "Recherche",
+    "subtitle": "Rechercher du contenu qui vous intéresse"
+  }
+}

@@ -1,0 +1,41 @@
+---
+import Header from '@/ui/Header.astro';
+import Footer from '@/ui/Footer.astro';
+import GTMHead from '@/analytics/GTMHead.astro';
+import GTMBody from '@/analytics/GTMBody.astro';
+import type { Lang } from '@/utils/i18n';
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang: langProp = 'zh' } = Astro.props as Props;
+const resolvedLang = ((Astro.currentLocale as Lang | undefined) ??
+  (langProp as Lang | undefined) ??
+  'zh') as Lang;
+---
+
+<!doctype html>
+<html lang={resolvedLang} class="scroll-pt-16">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <slot name="head" />
+    <GTMHead />
+    <ClientRouter />
+  </head>
+  <body class="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+    <div class="flex min-h-dvh flex-col">
+      <Header lang={resolvedLang} />
+      <main id="main" class="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-5 md:px-6">
+        <slot />
+      </main>
+      <Footer lang={resolvedLang} />
+      <slot name="after" />
+    </div>
+    <GTMBody />
+  </body>
+</html>

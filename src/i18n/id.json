@@ -1,0 +1,153 @@
+{
+  "site": {
+    "name": "Astrology",
+    "titleTemplate": "%s · Astrology",
+    "description": "Menyusuri lautan kehidupan, gelombang kewirausahaan, dan kabut investasi",
+    "twitter": {
+      "site": "@inotelabs",
+      "creator": "@Astro"
+    }
+  },
+  "language": {
+    "name": "Bahasa Indonesia",
+    "switch": "Ganti Bahasa",
+    "current": "Bahasa Saat Ini"
+  },
+  "theme": {
+    "toggle": "Ubah Tema",
+    "light": "Terang",
+    "dark": "Gelap",
+    "system": "Default Sistem"
+  },
+  "dateFormat": "D MMM YYYY",
+  "post": {
+    "publishedAt": "Diterbitkan pada",
+    "modifiedAt": "Diubah pada",
+    "relatedPosts": "Artikel Terkait"
+  },
+  "categories": {
+    "life": "Kehidupan",
+    "invest": "Investasi",
+    "build": "Membangun"
+  },
+  "tags": {
+    "reflect": "Merenung",
+    "media": "Media",
+    "roam": "Mengembara",
+    "risk": "Risiko",
+    "strategy": "Strategi",
+    "allocation": "Alokasi",
+    "innovation": "Inovasi",
+    "model": "Model",
+    "management": "Manajemen"
+  },
+  "headings": {
+    "home": {
+      "title": "Beranda",
+      "h1": "Astrology",
+      "h2": "Menyusuri lautan kehidupan, gelombang kewirausahaan, dan kabut investasi"
+    },
+    "build": { "h1": "Membangun", "h2": "Jalan dari nol ke satu, menangkap peluang dan tantangan" },
+    "innovation": {
+      "h1": "Inovasi",
+      "h2": "Didorong teknologi dan pemikiran terobosan, mencari kekuatan untuk mengubah dunia"
+    },
+    "model": {
+      "h1": "Model",
+      "h2": "Dari kasus ke tren, mengeksplorasi logika pertumbuhan yang dapat direplikasi"
+    },
+    "management": {
+      "h1": "Manajemen",
+      "h2": "Menyeimbangkan strategi dan eksekusi untuk membangun organisasi yang efisien dan budaya tim"
+    },
+    "invest": { "h1": "Investasi", "h2": "Seni menangkap nilai, logika ganda modal dan industri" },
+    "risk": {
+      "h1": "Risiko",
+      "h2": "Kepastian dalam ketidakpastian: cara mengidentifikasi dan lindung nilai secara efektif"
+    },
+    "strategy": {
+      "h1": "Strategi",
+      "h2": "Maju dalam permainan, membangun keunggulan jangka panjang dan parit pertahanan"
+    },
+    "allocation": {
+      "h1": "Alokasi",
+      "h2": "Solusi optimal sumber daya: menyeimbangkan modal, waktu, dan energi"
+    },
+    "life": {
+      "h1": "Kehidupan",
+      "h2": "Melampaui efisiensi dan output: mengejar keseimbangan, kesehatan, dan kebahagiaan"
+    },
+    "reflect": {
+      "h1": "Merenung",
+      "h2": "Perlambat dan berpikir mendalam tentang kemungkinan masa depan"
+    },
+    "media": {
+      "h1": "Media",
+      "h2": "Dari membaca ke mengamati, mendapatkan wawasan dan inspirasi lintas disiplin"
+    },
+    "roam": {
+      "h1": "Mengembara",
+      "h2": "Di perjalanan, merasakan koneksi sejati antara manusia dan dunia"
+    }
+  },
+  "navigation": {
+    "build": "Membangun",
+    "invest": "Investasi",
+    "life": "Kehidupan"
+  },
+  "pages": {
+    "about": { "title": "Tentang" },
+    "author": { "title": "Penulis" },
+    "categories": {
+      "title": "Kategori",
+      "h2": "Jelajahi kategori",
+      "description": "Jelajahi topik dan temukan artikel berdasarkan kategori."
+    },
+    "tags": {
+      "title": "Tag",
+      "h2": "Jelajahi tag",
+      "description": "Jelajahi topik dan temukan artikel berdasarkan tag."
+    }
+  },
+  "common": {
+    "loading": "Memuat...",
+    "error": "Kesalahan",
+    "notFound": "Tidak Ditemukan",
+    "back": "Kembali",
+    "next": "Selanjutnya",
+    "previous": "Sebelumnya",
+    "readMore": "Baca Selengkapnya",
+    "pagination": {
+      "totalPosts": "{count} artikel total",
+      "pageInfo": "Halaman {current} dari {total}",
+      "noPosts": "Tidak ada artikel",
+      "noPostsInCategory": "Belum ada artikel dalam kategori ini. Silakan periksa kembali nanti."
+    }
+  },
+  "footer": {
+    "copyright": "Hak Cipta",
+    "allRightsReserved": "Hak Cipta Dilindungi",
+    "more": "Selengkapnya",
+    "author": "Penulis",
+    "categories": "Kategori",
+    "tags": "Tag",
+    "privacyPolicy": "Kebijakan Privasi",
+    "termsOfService": "Syarat Layanan",
+    "contactUs": "Hubungi Kami"
+  },
+  "homepage": {
+    "featuredPosts": "Artikel Unggulan",
+    "topArticles": "Artikel Populer",
+    "latestArticles": "Artikel Terbaru"
+  },
+  "notFound": {
+    "title": "Halaman Tidak Ditemukan",
+    "message": "Maaf, halaman yang Anda cari tidak ada atau telah dihapus.",
+    "backToHome": "Kembali ke Beranda",
+    "browsePosts": "Jelajahi Artikel"
+  },
+  "search": {
+    "title": "Cari",
+    "subtitle": "Cari konten yang menarik bagi Anda"
+  }
+}

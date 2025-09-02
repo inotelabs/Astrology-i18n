@@ -1,0 +1,119 @@
+{
+  "site": {
+    "name": "Astrology",
+    "titleTemplate": "%s · Astrology",
+    "description": "在生活的海洋，创业的波涛和投资的迷雾中前行",
+    "twitter": {
+      "site": "@inotelabs",
+      "creator": "@Astro"
+    }
+  },
+  "language": {
+    "name": "中文",
+    "switch": "切换语言",
+    "current": "当前语言"
+  },
+  "theme": {
+    "toggle": "切换主题",
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统"
+  },
+  "dateFormat": "YYYY年M月D日",
+  "post": {
+    "publishedAt": "发布于",
+    "modifiedAt": "修改于",
+    "relatedPosts": "相关文章"
+  },
+  "categories": {
+    "life": "生活",
+    "invest": "投资",
+    "build": "创业"
+  },
+  "tags": {
+    "reflect": "沉思",
+    "media": "观阅",
+    "roam": "行走",
+    "risk": "风险",
+    "strategy": "策略",
+    "allocation": "配置",
+    "innovation": "创新",
+    "model": "模式",
+    "management": "管理"
+  },
+  "headings": {
+    "home": { "title": "首页", "h1": "Astrology", "h2": "在生活的海洋，创业的波涛和投资的迷雾中前行" },
+    "build": { "h1": "创业", "h2": "从零到一的道路，洞察机遇与挑战" },
+    "innovation": { "h1": "创新", "h2": "技术驱动与思维突破，寻找改变世界的力量" },
+    "model": { "h1": "模式", "h2": "从案例到趋势，探索可复制的增长逻辑" },
+    "management": { "h1": "管理", "h2": "平衡战略与执行，构建高效组织与团队文化" },
+    "invest": { "h1": "投资", "h2": "捕捉价值的艺术，资本与产业的双重逻辑" },
+    "risk": { "h1": "风险", "h2": "不确定性中的确定性，如何有效识别与对冲" },
+    "strategy": { "h1": "策略", "h2": "在博弈中前行，把握长期优势与竞争壁垒" },
+    "allocation": { "h1": "配置", "h2": "资源最优解，资金、时间与精力的平衡术" },
+    "life": { "h1": "生活", "h2": "超越效率与产出，追求平衡、健康与幸福" },
+    "reflect": { "h1": "沉思", "h2": "放慢脚步，深度思考未来的可能性" },
+    "media": { "h1": "观阅", "h2": "从阅读到观察，获取跨界的启发与洞见" },
+    "roam": { "h1": "行走", "h2": "在路上，感受人与世界的真实连接" }
+  },
+  "navigation": {
+    "build": "创业",
+    "invest": "投资",
+    "life": "生活"
+  },
+  "pages": {
+    "about": { "title": "关于" },
+    "author": { "title": "作者" },
+    "categories": {
+      "title": "分类",
+      "h2": "浏览分类",
+      "description": "按主题浏览，基于分类发现更多文章。"
+    },
+    "tags": {
+      "title": "标签",
+      "h2": "浏览标签",
+      "description": "按主题浏览，基于标签发现更多文章。"
+    }
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "出错了",
+    "notFound": "未找到",
+    "back": "返回",
+    "next": "下一页",
+    "previous": "上一页",
+    "readMore": "阅读更多",
+    "pagination": {
+      "totalPosts": "共 {count} 篇文章",
+      "pageInfo": "第 {current} 页，共 {total} 页",
+      "noPosts": "暂无文章",
+      "noPostsInCategory": "该分类下暂时没有文章，请稍后再来查看。"
+    }
+  },
+  "footer": {
+    "copyright": "版权所有",
+    "allRightsReserved": "保留所有权利",
+    "more": "更多",
+    "author": "作者",
+    "categories": "分类",
+    "tags": "标签",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款",
+    "contactUs": "联系我们"
+  },
+  "homepage": {
+    "featuredPosts": "精选文章",
+    "topArticles": "热门文章",
+    "latestArticles": "最新文章"
+  },
+  "notFound": {
+    "title": "页面未找到",
+    "message": "抱歉，您访问的页面不存在或已被移除。",
+    "backToHome": "返回首页",
+    "browsePosts": "浏览文章"
+  },
+  "search": {
+    "title": "搜索",
+    "subtitle": "搜索你感兴趣的内容"
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "site": {
+    "name": "Astrology",
+    "titleTemplate": "%s · Astrology",
+    "description": "Avanzando en el océano de la vida, las olas del emprenAstroento y la niebla de la inversión",
+    "twitter": {
+      "site": "@inotelabs",
+      "creator": "@Astro"
+    }
+  },
+  "language": {
+    "name": "Español",
+    "switch": "Cambiar idioma",
+    "current": "Idioma actual"
+  },
+  "theme": {
+    "toggle": "Cambiar tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Predeterminado del sistema"
+  },
+  "dateFormat": "D [de] MMM [de] YYYY",
+  "post": {
+    "publishedAt": "Publicado el",
+    "modifiedAt": "Modificado el",
+    "relatedPosts": "Artículos relacionados"
+  },
+  "categories": {
+    "life": "Vida",
+    "invest": "Invertir",
+    "build": "Construir"
+  },
+  "tags": {
+    "reflect": "Reflexión",
+    "media": "Medios",
+    "roam": "Deambular",
+    "risk": "Riesgo",
+    "strategy": "Estrategia",
+    "allocation": "Asignación",
+    "innovation": "Innovación",
+    "model": "Modelo",
+    "management": "Gestión"
+  },
+  "headings": {
+    "home": {
+      "title": "Inicio",
+      "h1": "Astrology",
+      "h2": "Avanzando en la vida, el emprenAstroento y la niebla de la inversión"
+    },
+    "build": {
+      "h1": "Construir",
+      "h2": "El camino de cero a uno, detectando oportunidades y desafíos"
+    },
+    "innovation": {
+      "h1": "Innovación",
+      "h2": "Impulsado por la tecnología y el pensamiento disruptivo, buscando el poder de cambiar el mundo"
+    },
+    "model": {
+      "h1": "Modelo",
+      "h2": "De casos a tendencias, explorando una lógica de crecimiento replicable"
+    },
+    "management": {
+      "h1": "Gestión",
+      "h2": "Equilibrar estrategia y ejecución para construir una organización eficiente y una cultura de equipo"
+    },
+    "invest": {
+      "h1": "Invertir",
+      "h2": "El arte de capturar valor, la doble lógica del capital y la industria"
+    },
+    "risk": {
+      "h1": "Riesgo",
+      "h2": "Certeza dentro de la incertidumbre: cómo identificar y cubrirse eficazmente"
+    },
+    "strategy": {
+      "h1": "Estrategia",
+      "h2": "Avanzar en el juego, construyendo ventajas a largo plazo y fosos defensivos"
+    },
+    "allocation": {
+      "h1": "Asignación",
+      "h2": "El óptimo de recursos: equilibrar capital, tiempo y energía"
+    },
+    "life": {
+      "h1": "Vida",
+      "h2": "Más allá de la eficiencia y el renAstroento: buscar equilibrio, salud y felicidad"
+    },
+    "reflect": {
+      "h1": "Reflexión",
+      "h2": "Reducir la marcha y pensar profundamente en las posibilidades del futuro"
+    },
+    "media": {
+      "h1": "Medios",
+      "h2": "De la lectura a la observación, obteniendo inspiración e ideas interdisciplinarias"
+    },
+    "roam": {
+      "h1": "Deambular",
+      "h2": "En el camino, sentir la conexión auténtica entre las personas y el mundo"
+    }
+  },
+  "navigation": {
+    "build": "Construir",
+    "invest": "Invertir",
+    "life": "Vida"
+  },
+  "pages": {
+    "about": { "title": "Acerca de" },
+    "author": { "title": "Autor" },
+    "categories": {
+      "title": "Categorías",
+      "h2": "Explorar categorías",
+      "description": "Explora temas y encuentra artículos por categoría."
+    },
+    "tags": {
+      "title": "Etiquetas",
+      "h2": "Explorar etiquetas",
+      "description": "Explora temas y encuentra artículos por etiquetas."
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "notFound": "No encontrado",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "readMore": "Leer más",
+    "pagination": {
+      "totalPosts": "{count} artículos en total",
+      "pageInfo": "Página {current} de {total}",
+      "noPosts": "No hay artículos",
+      "noPostsInCategory": "No hay artículos en esta categoría todavía. Por favor, vuelve más tarde."
+    }
+  },
+  "footer": {
+    "copyright": "Derechos de autor",
+    "allRightsReserved": "Todos los derechos reservados",
+    "more": "Más",
+    "author": "Autor",
+    "categories": "Categorías",
+    "tags": "Etiquetas",
+    "privacyPolicy": "Política de privacidad",
+    "termsOfService": "Términos de servicio",
+    "contactUs": "Contáctanos"
+  },
+  "homepage": {
+    "featuredPosts": "Artículos destacados",
+    "topArticles": "Artículos populares",
+    "latestArticles": "Últimos artículos"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "message": "Lo sentimos, la página que buscas no existe o ha sido eliminada.",
+    "backToHome": "Volver al inicio",
+    "browsePosts": "Explorar artículos"
+  },
+  "search": {
+    "title": "Buscar",
+    "subtitle": "Busca contenido de tu interés"
+  }
+}

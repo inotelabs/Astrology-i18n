@@ -1,0 +1,96 @@
+---
+import { Image, Picture } from 'astro:assets';
+
+type LayoutType = 'constrained' | 'full-width' | 'fixed' | 'none';
+type FitType = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+
+interface Props {
+  src: any;
+  alt: string;
+
+  layout?: LayoutType;
+  fit?: FitType;
+  position?: string;
+  priority?: boolean;
+  inferSize?: boolean;
+
+  class?: string;
+  width?: number;
+  height?: number;
+  rounded?: boolean;
+
+  asPicture?: boolean;
+  formats?: Array<'avif' | 'webp' | 'png' | 'jpg' | 'jpeg' | 'gif' | 'svg'>;
+}
+
+const {
+  src,
+  alt,
+  class: className,
+  layout,
+  fit,
+  position,
+  priority = false,
+  inferSize,
+  width,
+  height,
+  asPicture = true,
+  formats = ['avif', 'webp'],
+  rounded = true,
+} = Astro.props as Props;
+
+const isRemote = typeof src === 'string' && /^(https?:)?\/\/.*/.test(src);
+
+const shouldInfer = inferSize ?? isRemote;
+
+const roundedForImg = rounded ? 'rounded-lg' : '';
+const roundedForPicture = rounded ? 'rounded-lg overflow-hidden' : '';
+const imgClass = [className, roundedForImg].filter(Boolean).join(' ');
+const pictureClass = [className, roundedForPicture].filter(Boolean).join(' ');
+
+const baseImgProps = {
+  alt,
+  class: imgClass,
+  ...(layout ? { layout } : {}),
+  ...(fit ? { fit } : {}),
+  ...(position ? { position } : {}),
+  ...(typeof width === 'number' ? { width } : {}),
+  ...(typeof height === 'number' ? { height } : {}),
+  priority,
+};
+const basePictureProps = {
+  formats,
+  fallbackFormat: 'webp' as const,
+  alt,
+  class: pictureClass,
+  ...(layout ? { layout } : {}),
+  ...(fit ? { fit } : {}),
+  ...(position ? { position } : {}),
+  ...(typeof width === 'number' ? { width } : {}),
+  ...(typeof height === 'number' ? { height } : {}),
+  priority,
+};
+---
+
+{
+  isRemote && !shouldInfer ? (
+    <img
+      src={src}
+      alt={alt}
+      class={imgClass}
+      loading={priority ? 'eager' : 'lazy'}
+      fetchpriority={priority ? 'high' : 'auto'}
+      decoding="async"
+    />
+  ) : asPicture ? (
+    shouldInfer ? (
+      <Picture src={src as any} {...basePictureProps} inferSize={true} />
+    ) : (
+      <Picture src={src as any} {...basePictureProps} inferSize={false} />
+    )
+  ) : shouldInfer ? (
+    <Image src={src as any} {...baseImgProps} inferSize={true} />
+  ) : (
+    <Image src={src as any} {...baseImgProps} inferSize={false} />
+  )
+}

@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: string;
+  alt?: string;
+  class?: string;
+  width?: number;
+  height?: number;
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  priority?: boolean;
+  rounded?: boolean;
+}
+
+const props = Astro.props as Props;
+
+const isRemote = typeof props.src === 'string' && /^(https?:)?\/\/.*/.test(props.src);
+const hasSize = typeof props.width === 'number' && typeof props.height === 'number';
+const isPriority = !!(
+  props.priority ||
+  props.loading === 'eager' ||
+  props.fetchpriority === 'high'
+);
+const loading = (isPriority ? 'eager' : props.loading) ?? 'lazy';
+const decoding = props.decoding ?? 'async';
+const fetchpriority =
+  (isPriority ? 'high' : props.fetchpriority) ?? (loading === 'lazy' ? 'low' : 'auto');
+const sizes = props.sizes ?? '(min-width: 1024px) 768px, 100vw';
+const rounded = props.rounded ?? true;
+const cls = [props.class, 'h-auto max-w-full', rounded ? 'rounded-lg' : '']
+  .filter(Boolean)
+  .join(' ');
+---
+
+{
+  isRemote ? (
+    // For remote URLs, avoid astro:assets fetching to infer dimensions;
+    // render a standard img to prevent build-time network errors.
+    <img
+      src={props.src}
+      alt={props.alt || ''}
+      class={cls}
+      loading={loading}
+      decoding={decoding}
+      fetchpriority={fetchpriority}
+      sizes={sizes}
+    />
+  ) : hasSize ? (
+    <Image
+      src={props.src as any}
+      alt={props.alt || ''}
+      class={cls}
+      loading={loading}
+      decoding={decoding}
+      fetchpriority={fetchpriority}
+      sizes={sizes}
+      format="avif"
+      {...(typeof props.width === 'number' ? { width: props.width } : {})}
+      {...(typeof props.height === 'number' ? { height: props.height } : {})}
+      inferSize={false}
+    />
+  ) : (
+    // Local assets without explicit size: allow astro:assets to infer.
+    <Image
+      src={props.src as any}
+      alt={props.alt || ''}
+      class={cls}
+      loading={loading}
+      decoding={decoding}
+      fetchpriority={fetchpriority}
+      sizes={sizes}
+      format="avif"
+      inferSize={true}
+    />
+  )
+}

@@ -1,0 +1,155 @@
+---
+import type { Lang } from '@/utils/i18n';
+import { t } from '@/utils/translations';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  lang?: Lang;
+  class?: string;
+}
+
+const { lang, class: className } = Astro.props as Props;
+const resolvedLang = ((Astro.currentLocale as Lang | undefined) ??
+  (lang as Lang | undefined) ??
+  'zh') as Lang;
+
+const THEME_OPTIONS = [
+  { value: 'light', label: t(resolvedLang, 'theme.light'), icon: 'mdi:white-balance-sunny' },
+  { value: 'dark', label: t(resolvedLang, 'theme.dark'), icon: 'mdi:moon-waning-crescent' },
+  { value: 'system', label: t(resolvedLang, 'theme.system'), icon: 'tabler:brightness-filled' },
+];
+---
+
+<details class={`relative group ${className ?? ''}`.trim()} data-theme-root>
+  <summary
+    class="cursor-pointer rounded-md p-2 text-neutral-700 select-none hover:bg-neutral-100 focus:outline-none dark:text-neutral-300 dark:hover:bg-neutral-800"
+    aria-label={t(resolvedLang, 'theme.toggle')}
+  >
+    <span data-theme-icon>
+      <Icon name="mdi:white-balance-sunny" class="dark:hidden" />
+      <Icon name="mdi:moon-waning-crescent" class="hidden dark:inline" />
+    </span>
+    <span class="sr-only">{t(resolvedLang, 'theme.toggle')}</span>
+  </summary>
+
+  <div
+    class="absolute top-full left-1/2 z-50 mt-1 min-w-40 -translate-x-1/2 rounded-md border border-neutral-200/70 bg-white py-1.5 shadow-lg dark:border-neutral-800/70 dark:bg-neutral-900"
+    role="menu"
+    aria-orientation="vertical"
+    aria-labelledby="theme-menu-button"
+  >
+    {
+      THEME_OPTIONS.map((option) => (
+        <button
+          type="button"
+          class="flex w-full items-center gap-2 px-2.5 py-1.5 text-left text-sm hover:bg-neutral-50 focus:bg-neutral-50 focus:outline-none dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+          role="menuitem"
+          data-theme-option={option.value}
+          aria-pressed={false}
+        >
+          <Icon name={option.icon} class="flex-shrink-0" />
+          <span>{option.label}</span>
+        </button>
+      ))
+    }
+  </div>
+</details>
+
+<script>
+  function initThemeSwitcher() {
+    const themeRoot = document.querySelector('[data-theme-root]');
+    const themeIcon = document.querySelector('[data-theme-icon]');
+    const themeButtons = document.querySelectorAll('[data-theme-option]');
+
+    if (themeRoot && themeIcon && themeButtons.length) {
+      themeButtons.forEach((button) => {
+        button.removeEventListener('click', handleThemeChange);
+      });
+
+      function updateIcon(theme: 'light' | 'dark') {
+        const icons = themeIcon?.querySelectorAll('svg');
+        if (!icons || icons.length < 2) return;
+        icons[0]!.classList.toggle('hidden', theme === 'dark');
+        icons[1]!.classList.toggle('hidden', theme !== 'dark');
+      }
+
+      function applyTheme(theme: 'light' | 'dark') {
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        updateIcon(theme);
+      }
+
+      function setTheme(theme: 'light' | 'dark' | 'system') {
+        localStorage.setItem('theme', theme);
+        const actualTheme =
+          theme === 'system'
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light'
+            : theme;
+        applyTheme(actualTheme);
+
+        themeButtons.forEach((btn) => {
+          const value = btn.getAttribute('data-theme-option');
+          btn.setAttribute('aria-pressed', String(value === theme));
+        });
+      }
+
+      function handleThemeChange(event: Event) {
+        const button = (event.target as Element | null)?.closest('[data-theme-option]');
+        if (!button) return;
+
+        const theme = button.getAttribute('data-theme-option');
+        setTheme((theme as 'light' | 'dark' | 'system') || 'system');
+
+        if (themeRoot instanceof HTMLDetailsElement) {
+          themeRoot.open = false;
+        } else if (themeRoot) {
+          themeRoot.removeAttribute('open');
+        }
+
+        const mobilePanel = document.querySelector('[data-mobile-panel]');
+        if (
+          mobilePanel &&
+          mobilePanel.classList.contains('md:hidden') &&
+          !mobilePanel.classList.contains('hidden')
+        ) {
+          mobilePanel.classList.add('hidden');
+        }
+      }
+
+      const storedPref = localStorage.getItem('theme') as 'light' | 'dark' | 'system' | null;
+      const initialTheme: 'light' | 'dark' | 'system' = storedPref ?? 'system';
+      setTheme(initialTheme);
+
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (localStorage.getItem('theme') === 'system' || !localStorage.getItem('theme')) {
+          const newTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+          applyTheme(newTheme);
+        }
+      });
+
+      themeButtons.forEach((button) => {
+        button.addEventListener('click', handleThemeChange);
+      });
+    }
+  }
+
+  initThemeSwitcher();
+
+  document.addEventListener('astro:page-load', initThemeSwitcher);
+</script>
+
+<style>
+  details[data-theme-root] > summary::-webkit-details-marker {
+    display: none;
+  }
+  details[data-theme-root] > summary {
+    list-style: none;
+  }
+</style>

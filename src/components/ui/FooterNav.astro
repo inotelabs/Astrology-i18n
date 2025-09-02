@@ -1,0 +1,76 @@
+---
+import type { Lang } from '@/utils/i18n';
+import { t } from '@/utils/translations';
+import { NAV_ITEMS } from '@/utils/navItems';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+interface Props {
+  lang?: Lang;
+  class?: string;
+}
+const { lang, class: className } = Astro.props as Props;
+const resolvedLang = ((Astro.currentLocale as Lang | undefined) ??
+  (lang as Lang | undefined) ??
+  'zh') as Lang;
+---
+
+<div class={`md:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-6 ${className ?? ''}`.trim()}>
+  {
+    NAV_ITEMS.map((item) => (
+      <div>
+        <h3 class="mb-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+          <a
+            href={getRelativeLocaleUrl(resolvedLang, `/category/${item.key}`)}
+            class="no-underline hover:no-underline focus:no-underline"
+          >
+            {t(resolvedLang, `navigation.${item.key}`)}
+          </a>
+        </h3>
+        <ul class="space-y-1">
+          {item.tags.map((tag) => (
+            <li>
+              <a
+                href={getRelativeLocaleUrl(resolvedLang, `/tags/${tag}`)}
+                class="text-sm text-neutral-600 no-underline hover:text-neutral-900 hover:no-underline focus:no-underline dark:text-neutral-300 dark:hover:text-white"
+              >
+                {t(resolvedLang, `tags.${tag}`)}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+
+  <div>
+    <h3 class="mb-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+      {t(resolvedLang, 'footer.more')}
+    </h3>
+    <ul class="space-y-1">
+      <li>
+        <a
+          href={getRelativeLocaleUrl(resolvedLang, '/category')}
+          class="text-sm text-neutral-600 no-underline hover:text-neutral-900 hover:no-underline focus:no-underline dark:text-neutral-300 dark:hover:text-white"
+        >
+          {t(resolvedLang, 'footer.categories')}
+        </a>
+      </li>
+      <li>
+        <a
+          href={getRelativeLocaleUrl(resolvedLang, '/tags')}
+          class="text-sm text-neutral-600 no-underline hover:text-neutral-900 hover:no-underline focus:no-underline dark:text-neutral-300 dark:hover:text-white"
+        >
+          {t(resolvedLang, 'footer.tags')}
+        </a>
+      </li>
+      <li>
+        <a
+          href={getRelativeLocaleUrl(resolvedLang, '/author')}
+          class="text-sm text-neutral-600 no-underline hover:text-neutral-900 hover:no-underline focus:no-underline dark:text-neutral-300 dark:hover:text-white"
+        >
+          {t(resolvedLang, 'footer.author')}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

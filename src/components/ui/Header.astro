@@ -1,0 +1,79 @@
+---
+import type { Lang } from '@/utils/i18n';
+import { t } from '@/utils/translations';
+import LanguageSwitcher from '@/features/LanguageSwitcher.astro';
+import ThemeSwitcher from '@/features/ThemeSwitcher.astro';
+import MainNav from '@/ui/MainNav.astro';
+import MobileNav from '@/ui/MobileNav.astro';
+import { Icon } from 'astro-icon/components';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const resolvedLang = ((Astro.currentLocale as Lang | undefined) ??
+  (Astro.props.lang as Lang | undefined) ??
+  'zh') as Lang;
+
+const siteName = t(resolvedLang, 'site.name');
+---
+
+<header class="w-full bg-white dark:bg-neutral-950">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="flex h-14 items-center justify-between gap-3">
+      <a
+        href={getRelativeLocaleUrl(resolvedLang, '/')}
+        class="flex items-center gap-2 text-xl font-semibold tracking-tight text-neutral-900 hover:opacity-90 dark:text-neutral-100"
+      >
+        <span
+          class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-xl text-transparent"
+        >
+          {siteName}
+        </span>
+      </a>
+
+      <MainNav lang={resolvedLang} />
+
+      <div class="flex items-center gap-2">
+        <a
+          href={getRelativeLocaleUrl(resolvedLang, '/search')}
+          aria-label="Search"
+          title={t(resolvedLang, 'search.title')}
+          class="rounded-md p-2 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+        >
+          <Icon name="mdi:search" />
+        </a>
+
+        <LanguageSwitcher lang={resolvedLang} />
+
+        <ThemeSwitcher lang={resolvedLang} />
+
+        <button
+          type="button"
+          class="rounded-md p-2 text-neutral-700 hover:bg-neutral-100 lg:hidden dark:text-neutral-300 dark:hover:bg-neutral-800"
+          aria-label="Menu"
+          data-mobile-trigger
+        >
+          <Icon name="mdi:menu" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <MobileNav lang={resolvedLang} />
+</header>
+
+<script is:inline>
+  function handleMobileToggle() {
+    const panel = document.querySelector('[data-mobile-panel]');
+    if (panel) panel.classList.toggle('hidden');
+  }
+
+  function initMobileMenu() {
+    const btn = document.querySelector('[data-mobile-trigger]');
+    if (!btn) return;
+    btn.removeEventListener('click', handleMobileToggle);
+    btn.addEventListener('click', handleMobileToggle);
+  }
+
+  initMobileMenu();
+  document.addEventListener('DOMContentLoaded', initMobileMenu, { once: true });
+  document.addEventListener('astro:page-load', initMobileMenu);
+</script>

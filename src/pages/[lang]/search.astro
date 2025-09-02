@@ -1,0 +1,31 @@
+---
+import LandingLayout from '@/layouts/LandingLayout.astro';
+import PagefindSearch from 'astro-pagefind/components/Search';
+import { t } from '@/utils/translations';
+import type { Lang } from '@/utils/i18n';
+import { DEFAULT_LANG, SUPPORTED_LANGS } from '@/utils/i18n';
+
+export async function getStaticPaths() {
+  return SUPPORTED_LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = ((Astro.params.lang as Lang) || DEFAULT_LANG) as Lang;
+const title = t(lang, 'search.title');
+const description = t(lang, 'search.subtitle');
+---
+
+<LandingLayout
+  lang={lang}
+  title={title}
+  description={description}
+  canonical={Astro.url.href}
+  centered
+>
+  <div class="mx-auto w-full max-w-2xl">
+    <PagefindSearch
+      id="search-page"
+      className="pagefind-ui w-full"
+      uiOptions={{ showImages: false }}
+    />
+  </div>
+</LandingLayout>

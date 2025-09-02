@@ -1,0 +1,112 @@
+---
+import { getCollection } from 'astro:content';
+import LandingLayout from '@/layouts/LandingLayout.astro';
+import LatestList from '@/widgets/LatestList.astro';
+import { Icon } from 'astro-icon/components';
+import type { Lang } from '@/utils/i18n';
+import { DEFAULT_LANG, SUPPORTED_LANGS } from '@/utils/i18n';
+import { t } from '@/utils/translations';
+import OptimizedPicture from '@/features/OptimizedPicture.astro';
+import fallbackAvatar from '@/assets/author.avif';
+
+export async function getStaticPaths() {
+  return SUPPORTED_LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = ((Astro.params.lang as Lang) || DEFAULT_LANG) as Lang;
+
+const authors = await getCollection('author', (a) => !a.data.draft);
+const pick = (l: Lang) => authors.find((a) => a.data.locales === l);
+const entry = pick(lang) || pick(DEFAULT_LANG as Lang) || authors[0];
+
+const authorName = entry?.data.name || 'Author';
+const pageTitle = t(lang, 'pages.author.title') || (lang === 'zh' ? '作者' : 'Author');
+const description = entry?.data.bio || '';
+const socials: Array<{ label: string; url: string }> = (entry?.data.socials || []) as any;
+const avatar = entry?.data.avatar || (fallbackAvatar as any);
+
+function iconFor(label: string, url: string): string {
+  const k = String(label || '').toLowerCase();
+  if (k === 'x' || k === 'twitter') return 'tabler:brand-x';
+  if (k === 'github') return 'mdi:github';
+  if (k === 'rss' || url.endsWith('.xml')) return 'mdi:rss';
+  if (k === 'website' || /^https?:\/\/.*/.test(url)) return 'mdi:link-variant';
+  return 'mdi:link-variant';
+}
+---
+
+<LandingLayout
+  lang={lang}
+  title={pageTitle}
+  description={description}
+  canonical={Astro.url.href}
+  image={avatar}
+  imageAlt={authorName}
+  centered={false}
+>
+  <section
+    class="rounded-xl border border-neutral-200/70 bg-white/70 p-5 shadow-sm backdrop-blur sm:p-6 dark:border-neutral-800/70 dark:bg-neutral-900/70"
+  >
+    <div class="flex flex-col items-center gap-6 sm:flex-row sm:items-start sm:gap-6">
+      <div class="shrink-0">
+        <OptimizedPicture
+          src={avatar}
+          alt={authorName}
+          width={128}
+          height={128}
+          class="h-28 w-28 rounded-full object-cover ring-1 ring-black/5 sm:h-32 sm:w-32 dark:ring-white/10"
+          layout="fixed"
+          fit="cover"
+        />
+      </div>
+      <div class="w-full">
+        <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{authorName}</h2>
+        <p class="mt-2 text-sm tracking-wide text-neutral-500 uppercase dark:text-neutral-400">
+          {lang === 'zh' ? '简介' : 'Bio'}
+        </p>
+        <p class="mt-1 text-neutral-700 dark:text-neutral-300">{description}</p>
+
+        <div class="mt-4 flex items-center gap-6 text-sm">
+          {
+            socials.map((s) => (
+              <a
+                href={s.url}
+                target={s.url.startsWith('http') ? '_blank' : undefined}
+                rel={s.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                class="inline-flex items-center gap-1 text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white"
+              >
+                <span aria-hidden="true">
+                  <Icon name={iconFor(s.label, s.url)} class="h-5 w-5" />
+                </span>
+                <span class="sr-only">{s.label}</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <LatestList lang={lang} class="mt-10" />
+</LandingLayout>
+
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: authorName,
+    url: Astro.url.href,
+    image: (() => {
+      const av = avatar as any;
+      const src = typeof av === 'string' ? av : (av?.src ?? '');
+      if (!src) return '';
+      return src.startsWith('http://') || src.startsWith('https://')
+        ? src
+        : new URL(src, Astro.site!).href;
+    })(),
+    sameAs: socials.map((s) => s.url),
+    description,
+  })}
+/>

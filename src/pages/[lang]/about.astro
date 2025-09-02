@@ -1,0 +1,48 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import LandingLayout from '@/layouts/LandingLayout.astro';
+import Prose from '@/features/Prose.astro';
+import LatestList from '@/widgets/LatestList.astro';
+import type { Lang } from '@/utils/i18n';
+import { DEFAULT_LANG } from '@/utils/i18n';
+import { t } from '@/utils/translations';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('page');
+  const langs = Array.from(new Set(pages.map((p) => p.data.locales)));
+  return langs.map((lang) => ({ params: { lang } }));
+}
+
+const lang = (Astro.params.lang as Lang) || DEFAULT_LANG;
+
+const pick = (list: CollectionEntry<'page'>[], lang: Lang) =>
+  list.find((e) => e.data.locales === lang && /(^|\/)about(?:\.(md|mdx|markdown))?$/i.test(e.id));
+
+const allPages = await getCollection('page', (p) => !p.data.draft);
+let entry = pick(allPages, lang) || pick(allPages, DEFAULT_LANG) || allPages[0];
+
+let Content: any = undefined;
+if (entry) {
+  const rendered = await render(entry);
+  Content = rendered.Content;
+}
+
+const title = t(lang, 'pages.about.title') || entry?.data.title || 'About';
+const description = entry?.data.description || '';
+---
+
+<LandingLayout lang={lang} title={title} description={description} canonical={Astro.url.href}>
+  {
+    Content ? (
+      <Prose>
+        <Content />
+      </Prose>
+    ) : (
+      <Prose>
+        <p>{description}</p>
+      </Prose>
+    )
+  }
+
+  <LatestList lang={lang} />
+</LandingLayout>

@@ -1,0 +1,156 @@
+{
+  "site": {
+    "name": "Astrology",
+    "titleTemplate": "%s · Astrology",
+    "description": "Avançando pelo oceano da vida, pelas ondas do empreendedorismo e pela névoa dos investimentos",
+    "twitter": {
+      "site": "@inotelabs",
+      "creator": "@Astro"
+    }
+  },
+  "language": {
+    "name": "Português",
+    "switch": "Mudar idioma",
+    "current": "Idioma atual"
+  },
+  "theme": {
+    "toggle": "Alternar tema",
+    "light": "Claro",
+    "dark": "Escuro",
+    "system": "Padrão do sistema"
+  },
+  "dateFormat": "D [de] MMM [de] YYYY",
+  "post": {
+    "publishedAt": "Publicado em",
+    "modifiedAt": "Modificado em",
+    "relatedPosts": "Artigos relacionados"
+  },
+  "categories": {
+    "life": "Vida",
+    "invest": "Investir",
+    "build": "Construir"
+  },
+  "tags": {
+    "reflect": "Refletir",
+    "media": "Mídia",
+    "roam": "Vagar",
+    "risk": "Risco",
+    "strategy": "Estratégia",
+    "allocation": "Alocação",
+    "innovation": "Inovação",
+    "model": "Modelo",
+    "management": "Gestão"
+  },
+  "headings": {
+    "home": {
+      "title": "Início",
+      "h1": "Astrology",
+      "h2": "Avançando pelo oceano da vida, pelas ondas do empreendedorismo e pela névoa dos investimentos"
+    },
+    "build": { "h1": "Construir", "h2": "Do zero ao um: identificar oportunidades e desafios" },
+    "innovation": {
+      "h1": "Inovação",
+      "h2": "Impulsionada pela tecnologia e pelo pensamento de ruptura, buscando a força para mudar o mundo"
+    },
+    "model": {
+      "h1": "Modelo",
+      "h2": "Dos casos às tendências: explorar uma lógica de crescimento replicável"
+    },
+    "management": {
+      "h1": "Gestão",
+      "h2": "Equilibrar estratégia e execução para construir uma organização eficiente e uma cultura de equipe"
+    },
+    "invest": {
+      "h1": "Investir",
+      "h2": "A arte de capturar valor: a dupla lógica do capital e da indústria"
+    },
+    "risk": {
+      "h1": "Risco",
+      "h2": "Certeza na incerteza: como identificar e fazer hedge de forma eficaz"
+    },
+    "strategy": {
+      "h1": "Estratégia",
+      "h2": "Avançar no jogo, construindo vantagens de longo prazo e fossos defensivos"
+    },
+    "allocation": {
+      "h1": "Alocação",
+      "h2": "O uso ótimo dos recursos: equilibrar capital, tempo e energia"
+    },
+    "life": {
+      "h1": "Vida",
+      "h2": "Além da eficiência e do resultado: buscar equilíbrio, saúde e felicidade"
+    },
+    "reflect": {
+      "h1": "Reflexão",
+      "h2": "Desacelerar e pensar profundamente sobre as possibilidades do futuro"
+    },
+    "media": {
+      "h1": "Mídia",
+      "h2": "Da leitura à observação: obter inspirações e insights interdisciplinares"
+    },
+    "roam": {
+      "h1": "Vagar",
+      "h2": "Na estrada, sentir a conexão genuína entre as pessoas e o mundo"
+    }
+  },
+  "navigation": {
+    "build": "Construir",
+    "invest": "Investir",
+    "life": "Vida"
+  },
+  "pages": {
+    "about": { "title": "Sobre" },
+    "author": { "title": "Autor" },
+    "categories": {
+      "title": "Categorias",
+      "h2": "Explorar categorias",
+      "description": "Explore tópicos e encontre artigos por categoria."
+    },
+    "tags": {
+      "title": "Tags",
+      "h2": "Explorar tags",
+      "description": "Explore tópicos e encontre artigos por tags."
+    }
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "notFound": "Não encontrado",
+    "back": "Voltar",
+    "next": "Próximo",
+    "previous": "Anterior",
+    "readMore": "Ler mais",
+    "pagination": {
+      "totalPosts": "{count} artigos no total",
+      "pageInfo": "Página {current} de {total}",
+      "noPosts": "Nenhum artigo",
+      "noPostsInCategory": "Ainda não há artigos nesta categoria. Por favor, volte mais tarde."
+    }
+  },
+  "footer": {
+    "copyright": "Direitos autorais",
+    "allRightsReserved": "Todos os direitos reservados",
+    "more": "Mais",
+    "author": "Autor",
+    "categories": "Categorias",
+    "tags": "Tags",
+    "privacyPolicy": "Política de privacidade",
+    "termsOfService": "Termos de serviço",
+    "contactUs": "Contate-nos"
+  },
+  "homepage": {
+    "featuredPosts": "Artigos em destaque",
+    "topArticles": "Artigos populares",
+    "latestArticles": "Artigos mais recentes"
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "message": "Desculpe, a página que você está procurando não existe ou foi removida.",
+    "backToHome": "Voltar ao início",
+    "browsePosts": "Navegar pelos artigos"
+  },
+  "search": {
+    "title": "Buscar",
+    "subtitle": "Procure por conteúdo de seu interesse"
+  }
+}

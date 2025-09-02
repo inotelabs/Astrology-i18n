@@ -1,0 +1,83 @@
+---
+import type { Lang } from '@/utils/i18n';
+import { t } from '@/utils/translations';
+import { NAV_ITEMS } from '@/utils/navItems';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+interface Props {
+  lang?: Lang;
+  class?: string;
+}
+const { lang, class: className } = Astro.props as Props;
+const resolvedLang = ((Astro.currentLocale as Lang | undefined) ??
+  (lang as Lang | undefined) ??
+  'zh') as Lang;
+---
+
+<div class={`lg:hidden hidden ${className ?? ''}`.trim()} data-mobile-panel>
+  <div class="mx-auto max-w-6xl px-4 py-2 sm:px-6">
+    <div class="space-y-2">
+      {
+        NAV_ITEMS.map((item, i) => (
+          <div class="overflow-hidden rounded-md border border-neutral-200/70 dark:border-neutral-800/70">
+            <button
+              type="button"
+              class="flex w-full items-center bg-neutral-50/60 px-3 py-2 text-left text-sm font-semibold text-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-100"
+              data-accordion-trigger={`acc-${i}`}
+            >
+              <span>{t(resolvedLang, `navigation.${item.key}`)}</span>
+            </button>
+            <div class="hidden px-3 py-2" data-accordion-panel={`acc-${i}`}>
+              <a
+                href={getRelativeLocaleUrl(resolvedLang, `/category/${item.key}`)}
+                class="block rounded px-2 py-1.5 text-sm text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800"
+              >
+                {t(resolvedLang, `navigation.${item.key}`)}
+              </a>
+              <div class="mt-1 space-y-1 border-t border-neutral-200/60 pt-2 dark:border-neutral-800/60">
+                {item.tags.map((tag) => (
+                  <a
+                    href={getRelativeLocaleUrl(resolvedLang, `/tags/${tag}`)}
+                    class="block rounded px-2 py-1.5 text-sm text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                  >
+                    {t(resolvedLang, `tags.${tag}`)}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  function initMobileAccordion() {
+    var script = document.currentScript;
+    var root = script && script.previousElementSibling;
+    if (!root || !(root instanceof HTMLElement)) {
+      root = document.querySelector('[data-mobile-panel]');
+    }
+    if (!root) return;
+
+    root.removeEventListener('click', handleAccordionClick);
+
+    root.addEventListener('click', handleAccordionClick);
+
+    function handleAccordionClick(e) {
+      var t = e.target;
+      if (!(t instanceof Element)) return;
+      var trigger = t.closest('[data-accordion-trigger]');
+      if (!trigger) return;
+      var id = trigger.getAttribute('data-accordion-trigger');
+      if (!id) return;
+      var panel = root.querySelector('[data-accordion-panel="' + id + '"]');
+      if (panel) panel.classList.toggle('hidden');
+    }
+  }
+
+  initMobileAccordion();
+
+  document.addEventListener('astro:page-load', initMobileAccordion);
+</script>

@@ -1,0 +1,89 @@
+---
+import { getCollection, type CollectionEntry, render } from 'astro:content';
+import OptimizedPicture from '@/features/OptimizedPicture.astro';
+import ContentImage from '@/features/ContentImage.astro';
+import RelatedList from '@/widgets/RelatedList.astro';
+import PostLayout from '@/layouts/PostLayout.astro';
+import Prose from '@/features/Prose.astro';
+import type { Lang } from '@/utils/i18n';
+import { DEFAULT_LANG, SUPPORTED_LANGS, toAbsolute } from '@/utils/i18n';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('post', (entry) => !entry.data.draft);
+
+  const paths = posts.flatMap((entry) => {
+    const lang = entry.data.locales as Lang;
+    if (!(SUPPORTED_LANGS as readonly string[]).includes(lang)) return [] as any[];
+
+    const idWithoutExt = entry.id.replace(/\.(md|mdx|markdown)$/i, '');
+    const slugWithoutLang = idWithoutExt.replace(new RegExp(`^${lang}/`), '');
+    return [
+      {
+        params: { lang, slug: slugWithoutLang },
+        props: { entry },
+      },
+    ];
+  });
+
+  return paths;
+}
+
+interface Props {
+  entry: CollectionEntry<'post'>;
+}
+
+const { entry } = Astro.props as Props;
+const lang = (Astro.params.lang as Lang) || (entry?.data.locales as Lang) || DEFAULT_LANG;
+
+if (!entry) {
+  return Astro.redirect(`/${lang}/404/`);
+}
+
+const { Content, remarkPluginFrontmatter } = await render(entry);
+
+const title = entry.data.title;
+const description = entry.data.description;
+const publishedTime = entry.data.pubDate;
+
+const modifiedTime = (remarkPluginFrontmatter as any)?.lastModified || entry.data.updatedDate;
+const author = entry.data.author;
+const section = entry.data.category;
+const tags = entry.data.tags as string[] | undefined;
+const authorUrl = toAbsolute(lang, '/author/');
+const heroImage = entry.data.heroImage;
+const heroImageAlt = entry.data.heroImageAlt;
+const postLayoutProps = {
+  lang,
+  title,
+  ...(description ? { description } : {}),
+  ...(heroImage ? { image: heroImage } : {}),
+  ...(heroImageAlt ? { imageAlt: heroImageAlt } : {}),
+  ...(publishedTime ? { publishedTime } : {}),
+  ...(modifiedTime ? { modifiedTime } : {}),
+  canonical: Astro.url.href,
+  noindex: false,
+  ...(author ? { author } : {}),
+  ...(authorUrl ? { authorUrl } : {}),
+  ...(section ? { section } : {}),
+  ...(tags ? { tags } : {}),
+};
+---
+
+<PostLayout {...postLayoutProps}>
+  {
+    heroImage && (
+      <figure class="mx-auto mb-6 w-full max-w-4xl overflow-hidden rounded-lg shadow">
+        <OptimizedPicture
+          src={heroImage}
+          alt={heroImageAlt}
+          priority
+          fit="cover"
+          position="center"
+          class="h-auto w-full object-cover"
+        />
+      </figure>
+    )
+  }
+  <Content components={{ img: ContentImage }} />
+  <RelatedList slot="after" lang={lang} category={entry.data.category} excludeId={entry.id} />
+</PostLayout>

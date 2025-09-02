@@ -1,0 +1,190 @@
+---
+interface PageMeta {
+  data: any[];
+  start: number;
+  end: number;
+  total: number;
+  currentPage: number;
+  size: number;
+  lastPage: number;
+  url: {
+    current: string;
+    prev?: string | null | undefined;
+    next?: string | null | undefined;
+    first?: string | null | undefined;
+    last?: string | null | undefined;
+  };
+}
+
+interface Props {
+  page: PageMeta;
+  window?: number;
+  class?: string;
+}
+
+const { page, window: win = 2, class: className } = Astro.props as Props;
+
+function hrefFor(n: number): string {
+  const cur = page.url.current;
+  const base = cur.replace(/\/(\d+)(\/)$/, '/');
+  if (n <= 1) return base;
+
+  return `${base.replace(/\/?$/, '/')}${n}/`;
+}
+
+function uniq<T>(arr: T[]): T[] {
+  return [...new Set(arr)];
+}
+
+function computePages(curr: number, last: number, win: number): Array<number | '…'> {
+  const pages: Array<number | '…'> = [];
+  const start = Math.max(1, curr - win);
+  const end = Math.min(last, curr + win);
+  const base = [1, ...Array.from({ length: end - start + 1 }, (_, i) => start + i), last];
+  const sorted = uniq(base).sort((a, b) => Number(a) - Number(b));
+  for (let i = 0; i < sorted.length; i++) {
+    const n = sorted[i]!;
+    pages.push(n as number);
+    const next = sorted[i + 1];
+    if (next !== undefined && next - n > 1) pages.push('…');
+  }
+  return pages;
+}
+
+const items = computePages(page.currentPage, page.lastPage, win);
+---
+
+{
+  page.lastPage > 1 && (
+    <>
+      <nav
+        aria-label="Pagination"
+        class={`mt-8 flex items-center justify-center sm:hidden ${className ?? ''}`.trim()}
+      >
+        <ul class="inline-flex items-center gap-3 text-sm">
+          <li>
+            {page.url.prev ? (
+              <a
+                href={page.url.prev}
+                class="inline-flex items-center rounded-md bg-white px-3 py-1.5 text-neutral-700 shadow ring-1 ring-neutral-200 hover:bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-200 dark:ring-neutral-700"
+                aria-label="Previous"
+              >
+                ‹
+              </a>
+            ) : (
+              <span class="inline-flex items-center rounded-md bg-neutral-100 px-3 py-1.5 text-neutral-400 ring-1 ring-neutral-200 dark:bg-neutral-800 dark:text-neutral-500 dark:ring-neutral-700">
+                ‹
+              </span>
+            )}
+          </li>
+          <li>
+            <span class="min-w-[4.5rem] text-center text-neutral-700 dark:text-neutral-200">
+              {page.currentPage} / {page.lastPage}
+            </span>
+          </li>
+          <li>
+            {page.url.next ? (
+              <a
+                href={page.url.next}
+                class="inline-flex items-center rounded-md bg-white px-3 py-1.5 text-neutral-700 shadow ring-1 ring-neutral-200 hover:bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-200 dark:ring-neutral-700"
+                aria-label="Next"
+              >
+                ›
+              </a>
+            ) : (
+              <span class="inline-flex items-center rounded-md bg-neutral-100 px-3 py-1.5 text-neutral-400 ring-1 ring-neutral-200 dark:bg-neutral-800 dark:text-neutral-500 dark:ring-neutral-700">
+                ›
+              </span>
+            )}
+          </li>
+        </ul>
+      </nav>
+
+      <nav
+        aria-label="Pagination"
+        class={`mt-8 hidden items-center justify-center sm:flex ${className ?? ''}`.trim()}
+      >
+        <ul class="inline-flex items-center gap-1 text-sm">
+          <li>
+            {page.url.first ? (
+              <a
+                href={page.url.first}
+                class="inline-flex items-center rounded-md bg-white px-3 py-1.5 text-neutral-700 shadow ring-1 ring-neutral-200 hover:bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-200 dark:ring-neutral-700"
+              >
+                «
+              </a>
+            ) : (
+              <span class="inline-flex items-center rounded-md bg-neutral-100 px-3 py-1.5 text-neutral-400 ring-1 ring-neutral-200 dark:bg-neutral-800 dark:text-neutral-500 dark:ring-neutral-700">
+                «
+              </span>
+            )}
+          </li>
+
+          <li>
+            {page.url.prev ? (
+              <a
+                href={page.url.prev}
+                class="inline-flex items-center rounded-md bg-white px-3 py-1.5 text-neutral-700 shadow ring-1 ring-neutral-200 hover:bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-200 dark:ring-neutral-700"
+              >
+                ‹
+              </a>
+            ) : (
+              <span class="inline-flex items-center rounded-md bg-neutral-100 px-3 py-1.5 text-neutral-400 ring-1 ring-neutral-200 dark:bg-neutral-800 dark:text-neutral-500 dark:ring-neutral-700">
+                ‹
+              </span>
+            )}
+          </li>
+
+          {items.map((it) => (
+            <li>
+              {it === '…' ? (
+                <span class="px-2 text-neutral-400">…</span>
+              ) : it === page.currentPage ? (
+                <span class="inline-flex items-center rounded-md bg-neutral-900 px-3 py-1.5 text-white dark:bg-white dark:text-neutral-900">
+                  {it}
+                </span>
+              ) : (
+                <a
+                  href={hrefFor(it as number)}
+                  class="inline-flex items-center rounded-md bg-white px-3 py-1.5 text-neutral-700 shadow ring-1 ring-neutral-200 hover:bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-200 dark:ring-neutral-700"
+                >
+                  {it}
+                </a>
+              )}
+            </li>
+          ))}
+
+          <li>
+            {page.url.next ? (
+              <a
+                href={page.url.next}
+                class="inline-flex items-center rounded-md bg-white px-3 py-1.5 text-neutral-700 shadow ring-1 ring-neutral-200 hover:bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-200 dark:ring-neutral-700"
+              >
+                ›
+              </a>
+            ) : (
+              <span class="inline-flex items-center rounded-md bg-neutral-100 px-3 py-1.5 text-neutral-400 ring-1 ring-neutral-200 dark:bg-neutral-800 dark:text-neutral-500 dark:ring-neutral-700">
+                ›
+              </span>
+            )}
+          </li>
+
+          <li>
+            {page.url.last ? (
+              <a
+                href={page.url.last}
+                class="inline-flex items-center rounded-md bg-white px-3 py-1.5 text-neutral-700 shadow ring-1 ring-neutral-200 hover:bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-200 dark:ring-neutral-700"
+              >
+                »
+              </a>
+            ) : (
+              <span class="inline-flex items-center rounded-md bg-neutral-100 px-3 py-1.5 text-neutral-400 ring-1 ring-neutral-200 dark:bg-neutral-800 dark:text-neutral-500 dark:ring-neutral-700">
+                »
+              </span>
+            )}
+          </li>
+        </ul>
+      </nav>
+    </>
+  )
+}

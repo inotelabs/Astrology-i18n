@@ -1,0 +1,73 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import LandingLayout from '@/layouts/LandingLayout.astro';
+import Pagination from '@/features/Pagination.astro';
+import PostCardText from '@/cards/PostCardText.astro';
+import type { Lang } from '@/utils/i18n';
+import { DEFAULT_LANG, SUPPORTED_LANGS } from '@/utils/i18n';
+import { t } from '@/utils/translations';
+
+export async function getStaticPaths() {
+  return SUPPORTED_LANGS.map((lang) => ({ params: { lang } }));
+}
+
+type Post = CollectionEntry<'post'>;
+
+function toUrl(entry: Post, lang: Lang): string {
+  const idWithoutExt = entry.id.replace(/\.(md|mdx|markdown)$/i, '');
+  const slug = idWithoutExt.replace(new RegExp(`^${lang}/`), '');
+  return `/${lang}/posts/${slug}/`;
+}
+
+const PAGE_SIZE = 20;
+const lang = ((Astro.params.lang as Lang) || DEFAULT_LANG) as Lang;
+
+const posts = await getCollection('post', (p) => !p.data.draft && p.data.locales === (lang as any));
+const all = posts.sort(
+  (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+);
+const items = all.slice(0, PAGE_SIZE);
+
+const total = all.length;
+const lastPage = Math.max(1, Math.ceil(total / PAGE_SIZE));
+const page = {
+  data: items,
+  start: 0,
+  end: items.length - 1,
+  total,
+  currentPage: 1,
+  size: PAGE_SIZE,
+  lastPage,
+  url: {
+    current: Astro.url.pathname,
+    prev: undefined,
+    next: lastPage > 1 ? `/${lang}/posts/2/` : undefined,
+    first: undefined,
+    last: lastPage > 1 ? `/${lang}/posts/${lastPage}/` : undefined,
+  },
+};
+
+const title = t(lang, 'homepage.latestArticles');
+const description = t(lang, 'common.pagination.totalPosts', { count: total });
+---
+
+<LandingLayout lang={lang} title={title} description={description} canonical={Astro.url.href}>
+  <div class="mt-2">
+    <div class="divide-y divide-neutral-200/60 dark:divide-neutral-800/60">
+      {
+        items.map((p) => (
+          <PostCardText
+            href={toUrl(p, lang)}
+            title={p.data.title}
+            date={p.data.pubDate}
+            category={p.data.category}
+            tags={p.data.tags}
+            lang={lang}
+          />
+        ))
+      }
+    </div>
+  </div>
+
+  <Pagination page={page} class="mt-8" />
+</LandingLayout>
