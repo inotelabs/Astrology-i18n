@@ -28,7 +28,7 @@ Scores vary by content and network; treat as indicative.
 
 ## Showcase
 
-- [iNote](https://inote.xyz) — A blog about investing, entrepreneurship, and life.
+- [**iNote**](https://inote.xyz) — A blog about investing, entrepreneurship, and life.
 - Using the theme? Open an issue titled "Showcase Submission" with your site URL and a screenshot to be featured.
 
 ## Features
