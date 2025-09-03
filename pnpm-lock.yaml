@@ -18,7 +18,7 @@ importers:
         specifier: ^4.0.12
         version: 4.0.12
       '@astrojs/sitemap':
-        specifier: ^3.5.0
+        specifier: ^3.5.1
         version: 3.5.1
       '@tailwindcss/vite':
         specifier: ^4.1.12
