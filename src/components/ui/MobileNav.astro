@@ -18,7 +18,7 @@ const resolvedLang = ((Astro.currentLocale as Lang | undefined) ??
   <div class="mx-auto max-w-6xl px-4 py-2 sm:px-6">
     <div class="space-y-2">
       {NAV_ITEMS.map((item, i) => (
-        item.children && item.children.length > 0 ? (
+        item.tags && item.tags.length > 0 ? (
           <div class="overflow-hidden rounded-md border border-neutral-200/70 dark:border-neutral-800/70">
             <button
               type="button"
@@ -30,18 +30,18 @@ const resolvedLang = ((Astro.currentLocale as Lang | undefined) ??
             </button>
             <div class="hidden px-3 py-2" data-accordion-panel={`m-${i}`}>
               <a
-                href={getRelativeLocaleUrl(resolvedLang, item.path)}
+                href={getRelativeLocaleUrl(resolvedLang, `/category/${item.key}`)}
                 class="block rounded px-2 py-1.5 text-sm text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800"
               >
                 {t(resolvedLang, `navigation.${item.key}`)}
               </a>
               <div class="mt-1 space-y-1 border-t border-neutral-200/60 pt-2 dark:border-neutral-800/60">
-                {item.children.map((c) => (
+                {item.tags.map((tag) => (
                   <a
-                    href={getRelativeLocaleUrl(resolvedLang, c.path)}
+                    href={getRelativeLocaleUrl(resolvedLang, `/tags/${tag}`)}
                     class="block rounded px-2 py-1.5 text-sm text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800"
                   >
-                    {t(resolvedLang, `${c.ns ?? 'navigation'}.${c.key}`)}
+                    {t(resolvedLang, `tags.${tag}`)}
                   </a>
                 ))}
               </div>
@@ -49,7 +49,7 @@ const resolvedLang = ((Astro.currentLocale as Lang | undefined) ??
           </div>
         ) : (
           <a
-            href={getRelativeLocaleUrl(resolvedLang, item.path)}
+            href={getRelativeLocaleUrl(resolvedLang, `/category/${item.key}`)}
             class="block rounded-md border border-neutral-200/70 bg-white px-3 py-2 text-sm font-semibold text-neutral-800 hover:bg-neutral-50 dark:border-neutral-800/70 dark:bg-neutral-900 dark:text-neutral-100 dark:hover:bg-neutral-800"
           >
             {t(resolvedLang, `navigation.${item.key}`)}
