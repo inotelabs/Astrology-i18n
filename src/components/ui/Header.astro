@@ -17,10 +17,10 @@ const siteName = t(resolvedLang, 'site.name');
 
 <header class="w-full bg-white dark:bg-neutral-950">
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
-    <div class="flex h-14 items-center justify-between gap-3">
+    <div class="grid h-14 grid-cols-[1fr_auto_1fr] items-center gap-3">
       <a
         href={getRelativeLocaleUrl(resolvedLang, '/')}
-        class="flex items-center gap-2 text-xl font-semibold tracking-tight text-neutral-900 hover:opacity-90 dark:text-neutral-100"
+        class="flex items-center gap-2 text-xl font-semibold tracking-tight text-neutral-900 hover:opacity-90 justify-self-start dark:text-neutral-100"
       >
         <span
           class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-xl text-transparent"
@@ -29,9 +29,11 @@ const siteName = t(resolvedLang, 'site.name');
         </span>
       </a>
 
-      <MainNav lang={resolvedLang} />
+      <div class="justify-self-center">
+        <MainNav lang={resolvedLang} />
+      </div>
 
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2 justify-self-end">
         <a
           href={getRelativeLocaleUrl(resolvedLang, '/search')}
           aria-label="Search"
