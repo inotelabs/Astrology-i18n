@@ -9,26 +9,38 @@ const lang = DEFAULT_LANG;
 const title = t(lang, 'notFound.title');
 const message = t(lang, 'notFound.message');
 const searchHint = t(lang, 'search.subtitle');
-const TEXTS = SUPPORTED_LANGS.reduce<Record<string, { title: string; message: string; search: string; back: string; browse: string; home: string; posts: string }>>(
-  (acc, l) => {
-    acc[l] = {
-      title: t(l as any, 'notFound.title'),
-      message: t(l as any, 'notFound.message'),
-      search: t(l as any, 'search.subtitle'),
-      back: t(l as any, 'notFound.backToHome'),
-      browse: t(l as any, 'notFound.browsePosts'),
-      home: toAbsolute(l as any, '/'),
-      posts: toAbsolute(l as any, '/posts/'),
-    };
-    return acc;
-  },
-  {},
-);
+const TEXTS = SUPPORTED_LANGS.reduce<
+  Record<
+    string,
+    {
+      title: string;
+      message: string;
+      search: string;
+      back: string;
+      browse: string;
+      home: string;
+      posts: string;
+    }
+  >
+>((acc, l) => {
+  acc[l] = {
+    title: t(l as any, 'notFound.title'),
+    message: t(l as any, 'notFound.message'),
+    search: t(l as any, 'search.subtitle'),
+    back: t(l as any, 'notFound.backToHome'),
+    browse: t(l as any, 'notFound.browsePosts'),
+    home: toAbsolute(l as any, '/'),
+    posts: toAbsolute(l as any, '/posts/'),
+  };
+  return acc;
+}, {});
 ---
 
 <LandingLayout lang={lang} title={title} description={message} canonical={null} noindex>
   <Prose>
-    <p id="i18n-search-hint" class="text-center text-sm text-neutral-500 dark:text-neutral-400">{searchHint}</p>
+    <p id="i18n-search-hint" class="text-center text-sm text-neutral-500 dark:text-neutral-400">
+      {searchHint}
+    </p>
   </Prose>
 
   <div class="mt-6">
@@ -60,9 +72,9 @@ const TEXTS = SUPPORTED_LANGS.reduce<Record<string, { title: string; message: st
 </LandingLayout>
 
 <script is:inline>
-  const SUPPORTED = {JSON.stringify(SUPPORTED_LANGS)};
-  const TEXTS = {JSON.stringify(TEXTS)};
-  const DEFAULT_LANG = {JSON.stringify(DEFAULT_LANG)};
+  const SUPPORTED = JSON.parse('{JSON.stringify(SUPPORTED_LANGS)}');
+  const TEXTS = JSON.parse('{JSON.stringify(TEXTS)}');
+  const DEFAULT_LANG = JSON.parse('{JSON.stringify(DEFAULT_LANG)}');
   (function () {
     try {
       function pickLang() {
@@ -77,9 +89,14 @@ const TEXTS = SUPPORTED_LANGS.reduce<Record<string, { title: string; message: st
       var t = TEXTS[l] || TEXTS[DEFAULT_LANG];
       if (!t) return;
       // Update title and meta description
-      try { document.title = t.title; } catch (e) {}
+      try {
+        document.title = t.title;
+      } catch (e) {}
       var desc = document.querySelector('meta[name="description"]');
-      if (desc) try { desc.setAttribute('content', t.message); } catch (e) {}
+      if (desc)
+        try {
+          desc.setAttribute('content', t.message);
+        } catch (e) {}
       // Swap texts
       var sh = document.getElementById('i18n-search-hint');
       if (sh) sh.textContent = t.search;

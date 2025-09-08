@@ -1,101 +1,101 @@
 ---
-type WeekdayIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6
+type WeekdayIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 type GitHubActivityDay = {
-  date: string // 'YYYY-MM-DD'
-  count: number
-  level: number // 0..4
-  color?: string
-}
+  date: string; // 'YYYY-MM-DD'
+  count: number;
+  level: number; // 0..4
+  color?: string;
+};
 
-type GitHubActivityWeek = Array<GitHubActivityDay | undefined>
+type GitHubActivityWeek = Array<GitHubActivityDay | undefined>;
 
-type GitHubActivityMonthLabel = { weekIndex: number; label: string }
+type GitHubActivityMonthLabel = { weekIndex: number; label: string };
 
 type GitHubActivityApiResponse = {
-  contributions: Array<GitHubActivityDay>
-  total: Record<string, number> & { lastYear: number }
-  error?: string
-}
+  contributions: Array<GitHubActivityDay>;
+  total: Record<string, number> & { lastYear: number };
+  error?: string;
+};
 
 function parseISO(date: string): Date {
-  return new Date(date)
+  return new Date(date);
 }
 
 function isValid(date: Date): boolean {
-  return !Number.isNaN(date.getTime())
+  return !Number.isNaN(date.getTime());
 }
 
 function formatISO(date: Date): string {
   // toISOString uses UTC; for calendar continuity, this is fine
-  return date.toISOString().slice(0, 10)
+  return date.toISOString().slice(0, 10);
 }
 
 function getDay(date: Date): WeekdayIndex {
-  return date.getDay() as WeekdayIndex
+  return date.getDay() as WeekdayIndex;
 }
 
 function getYear(date: Date): number {
-  return date.getFullYear()
+  return date.getFullYear();
 }
 
 function getMonth(date: Date): number {
-  return date.getMonth()
+  return date.getMonth();
 }
 
 function subWeeks(date: Date, weeks: number): Date {
-  const d = new Date(date)
-  d.setDate(d.getDate() - weeks * 7)
-  return d
+  const d = new Date(date);
+  d.setDate(d.getDate() - weeks * 7);
+  return d;
 }
 
 function nextDay(date: Date, weekday: WeekdayIndex): Date {
-  const d = new Date(date)
-  let add = (7 + weekday - d.getDay()) % 7
-  if (add === 0) add = 7
-  d.setDate(d.getDate() + add)
-  return d
+  const d = new Date(date);
+  let add = (7 + weekday - d.getDay()) % 7;
+  if (add === 0) add = 7;
+  d.setDate(d.getDate() + add);
+  return d;
 }
 
 function differenceInCalendarDays(a: Date, b: Date): number {
-  const msPerDay = 24 * 60 * 60 * 1000
-  const start = new Date(Date.UTC(a.getFullYear(), a.getMonth(), a.getDate()))
-  const end = new Date(Date.UTC(b.getFullYear(), b.getMonth(), b.getDate()))
-  return Math.round((start.getTime() - end.getTime()) / msPerDay)
+  const msPerDay = 24 * 60 * 60 * 1000;
+  const start = new Date(Date.UTC(a.getFullYear(), a.getMonth(), a.getDate()));
+  const end = new Date(Date.UTC(b.getFullYear(), b.getMonth(), b.getDate()));
+  return Math.round((start.getTime() - end.getTime()) / msPerDay);
 }
 
 function eachDayOfInterval({ start, end }: { start: Date; end: Date }): Array<Date> {
-  const days: Array<Date> = []
-  const cur = new Date(start)
+  const days: Array<Date> = [];
+  const cur = new Date(start);
   while (cur <= end) {
-    days.push(new Date(cur))
-    cur.setDate(cur.getDate() + 1)
+    days.push(new Date(cur));
+    cur.setDate(cur.getDate() + 1);
   }
-  return days
+  return days;
 }
 
 interface Props {
-  username: string
-  year?: number | 'last'
+  username: string;
+  year?: number | 'last';
 }
 
 function range(n: number) {
-  return [...Array(n).keys()]
+  return [...Array(n).keys()];
 }
 
-import { getSecret } from 'astro:env/server'
+import { getSecret } from 'astro:env/server';
 
 async function fetchWithTimeout(
   input: RequestInfo | URL,
   init?: RequestInit & { timeoutMs?: number },
 ): Promise<Response> {
-  const { timeoutMs = 5000, ...rest } = init || {}
-  const controller = new AbortController()
-  const id = setTimeout(() => controller.abort(), timeoutMs)
+  const { timeoutMs = 5000, ...rest } = init || {};
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    return await fetch(input, { ...rest, signal: controller.signal })
+    return await fetch(input, { ...rest, signal: controller.signal });
   } finally {
-    clearTimeout(id)
+    clearTimeout(id);
   }
 }
 
@@ -104,17 +104,17 @@ async function fetchData(
   year: number | 'last',
 ): Promise<GitHubActivityApiResponse> {
   // Prefer GitHub GraphQL with token to include private contributions
-  const token = getSecret('GITHUB_TOKEN') || import.meta.env.GITHUB_TOKEN
+  const token = getSecret('GITHUB_TOKEN') || import.meta.env.GITHUB_TOKEN;
   if (token) {
-    const now = new Date()
-    let from: Date
-    let to: Date
+    const now = new Date();
+    let from: Date;
+    let to: Date;
     if (year === 'last') {
-      to = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-      from = subWeeks(to, 52)
+      to = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      from = subWeeks(to, 52);
     } else {
-      from = new Date(year, 0, 1)
-      to = new Date(year, 11, 31, 23, 59, 59)
+      from = new Date(year, 0, 1);
+      to = new Date(year, 11, 31, 23, 59, 59);
     }
     const query = `
       query($login: String!, $from: DateTime!, $to: DateTime!) {
@@ -135,7 +135,7 @@ async function fetchData(
           }
         }
       }
-    `
+    `;
     const res = await fetchWithTimeout('https://api.github.com/graphql', {
       method: 'POST',
       headers: {
@@ -149,112 +149,110 @@ async function fetchData(
         variables: { login: username, from: from.toISOString(), to: to.toISOString() },
       }),
       timeoutMs: 6000,
-    })
-    const out = await res.json()
+    });
+    const out = await res.json();
     if (!res.ok || out.errors) {
-      const msg = out?.errors?.[0]?.message || 'GraphQL error'
-      throw new Error(`GitHub GraphQL failed: ${msg}`)
+      const msg = out?.errors?.[0]?.message || 'GraphQL error';
+      throw new Error(`GitHub GraphQL failed: ${msg}`);
     }
-    const cal = out?.data?.user?.contributionsCollection?.contributionCalendar
+    const cal = out?.data?.user?.contributionsCollection?.contributionCalendar;
     if (!cal) {
-      throw new Error('Unexpected GraphQL response: missing contributionCalendar')
+      throw new Error('Unexpected GraphQL response: missing contributionCalendar');
     }
-    const colors: Array<string> = Array.isArray(cal.colors) ? cal.colors : []
+    const colors: Array<string> = Array.isArray(cal.colors) ? cal.colors : [];
     const colorIndex = (c?: string): number => {
-      if (!c) return 0
-      const i = colors.indexOf(c)
-      return i >= 0 ? i : 0
-    }
-    const days: Array<GitHubActivityDay> = []
+      if (!c) return 0;
+      const i = colors.indexOf(c);
+      return i >= 0 ? i : 0;
+    };
+    const days: Array<GitHubActivityDay> = [];
     for (const w of cal.weeks as Array<any>) {
       for (const d of w.contributionDays as Array<any>) {
-        const date = String(d.date).slice(0, 10)
-        const count = Number(d.contributionCount || 0)
-        const color = String(d.color || '')
-        days.push({ date, count, level: colorIndex(color), color })
+        const date = String(d.date).slice(0, 10);
+        const count = Number(d.contributionCount || 0);
+        const color = String(d.color || '');
+        days.push({ date, count, level: colorIndex(color), color });
       }
     }
     // Ensure sorted by date
-    days.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0))
+    days.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
     // Validate
     if (days.length === 0) {
-      throw new Error('No contributions returned by GitHub')
+      throw new Error('No contributions returned by GitHub');
     }
     return {
       contributions: days,
       total: {
         lastYear: days.reduce((s, a) => s + a.count, 0),
       } as any,
-    }
+    };
   }
 
   function validateActivities(activities: Array<GitHubActivityDay>) {
     if (activities.length === 0) {
-      throw new Error('Activity data must not be empty.')
+      throw new Error('Activity data must not be empty.');
     }
     for (const { date, count } of activities) {
       if (!isValid(parseISO(date))) {
-        throw new Error(`Activity date '${date}' is not a valid ISO 8601 date string.`)
+        throw new Error(`Activity date '${date}' is not a valid ISO 8601 date string.`);
       }
       if (count < 0) {
-        throw new RangeError(`Activity count must not be negative, found ${count}.`)
+        throw new RangeError(`Activity count must not be negative, found ${count}.`);
       }
     }
   }
-  const apiUrl = 'https://github-contributions-api.jogruber.de/v4/'
+  const apiUrl = 'https://github-contributions-api.jogruber.de/v4/';
   const response = await fetchWithTimeout(`${apiUrl}${username}?y=${String(year)}`, {
     timeoutMs: 6000,
-  })
-  const data = (await response.json()) as GitHubActivityApiResponse
+  });
+  const data = (await response.json()) as GitHubActivityApiResponse;
   if (!response.ok) {
-    const message = data.error || 'Unknown error'
-    throw Error(`Fetching GitHub contribution data for "${username}" failed: ${message}`)
+    const message = data.error || 'Unknown error';
+    throw Error(`Fetching GitHub contribution data for "${username}" failed: ${message}`);
   }
 
-  validateActivities(data.contributions)
+  validateActivities(data.contributions);
 
-  return data
+  return data;
 }
 
 // Use GitHub-like green palette (level 0..4)
 function calcColorScale(): Array<string> {
-  return ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
+  return ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
 }
 
 function fillHoles(activities: Array<GitHubActivityDay>): Array<GitHubActivityDay> {
-  const calendar = new Map<string, GitHubActivityDay>(activities.map((a) => [a.date, a]))
-  const firstActivity = activities[0] as GitHubActivityDay
-  const lastActivity = activities[activities.length - 1] as GitHubActivityDay
+  const calendar = new Map<string, GitHubActivityDay>(activities.map((a) => [a.date, a]));
+  const firstActivity = activities[0] as GitHubActivityDay;
+  const lastActivity = activities[activities.length - 1] as GitHubActivityDay;
 
   return eachDayOfInterval({
     start: parseISO(firstActivity.date),
     end: parseISO(lastActivity.date),
   }).map((day) => {
-    const date = formatISO(day)
+    const date = formatISO(day);
     if (calendar.has(date)) {
-      return calendar.get(date) as GitHubActivityDay
+      return calendar.get(date) as GitHubActivityDay;
     }
     return {
       date,
       count: 0,
       level: 0,
-    }
-  })
+    };
+  });
 }
 
 function groupByWeeks(
   activities: Array<GitHubActivityDay>,
   weekStart: WeekdayIndex = 0, // 0 = Sunday
 ): Array<GitHubActivityWeek> {
-  const normalizedActivities = fillHoles(activities)
+  const normalizedActivities = fillHoles(activities);
   // Determine the first date of the calendar. If the first date is not the
   // passed weekday, the respective weekday one week earlier is used.
-  const firstActivity = normalizedActivities[0] as GitHubActivityDay
-  const firstDate = parseISO(firstActivity.date)
+  const firstActivity = normalizedActivities[0] as GitHubActivityDay;
+  const firstDate = parseISO(firstActivity.date);
   const firstCalendarDate =
-    getDay(firstDate) === weekStart
-      ? firstDate
-      : subWeeks(nextDay(firstDate, weekStart), 1)
+    getDay(firstDate) === weekStart ? firstDate : subWeeks(nextDay(firstDate, weekStart), 1);
   // To correctly group activities by week, it is necessary to left-pad the list
   // because the first date might not be set start weekday.
   const paddedActivities = [
@@ -262,13 +260,13 @@ function groupByWeeks(
       undefined,
     ) as Array<GitHubActivityDay>),
     ...normalizedActivities,
-  ]
-  const numberOfWeeks = Math.ceil(paddedActivities.length / 7)
+  ];
+  const numberOfWeeks = Math.ceil(paddedActivities.length / 7);
 
   // Finally, group activities by week
   return [...Array(numberOfWeeks).keys()].map((weekIndex) =>
     paddedActivities.slice(weekIndex * 7, weekIndex * 7 + 7),
-  )
+  );
 }
 
 function getMonthLabels(
@@ -277,118 +275,102 @@ function getMonthLabels(
 ): Array<GitHubActivityMonthLabel> {
   return weeks
     .reduce<Array<GitHubActivityMonthLabel>>((labels, week, weekIndex) => {
-      const firstActivity = week.find((activity) => activity !== undefined)
+      const firstActivity = week.find((activity) => activity !== undefined);
       if (!firstActivity) {
-        throw new Error(`Unexpected error: Week ${weekIndex + 1} is empty.`)
+        throw new Error(`Unexpected error: Week ${weekIndex + 1} is empty.`);
       }
-      const month = monthNames[getMonth(parseISO(firstActivity.date))]
+      const month = monthNames[getMonth(parseISO(firstActivity.date))];
       if (!month) {
         const monthName = new Date(firstActivity.date).toLocaleString('en-US', {
           month: 'short',
-        })
-        throw new Error(`Unexpected error: undefined month label for ${monthName}.`)
+        });
+        throw new Error(`Unexpected error: undefined month label for ${monthName}.`);
       }
-      const prevLabel = labels[labels.length - 1]
+      const prevLabel = labels[labels.length - 1];
       if (weekIndex === 0 || !prevLabel || prevLabel.label !== month) {
-        return [...labels, { weekIndex, label: month }]
+        return [...labels, { weekIndex, label: month }];
       }
-      return labels
+      return labels;
     }, [])
     .filter(({ weekIndex }, index, labels) => {
-      const minWeeks = 3
+      const minWeeks = 3;
       // Skip the first month label if there is not enough space to the next one.
       if (index === 0) {
-        return labels[1] && labels[1].weekIndex - weekIndex >= minWeeks
+        return labels[1] && labels[1].weekIndex - weekIndex >= minWeeks;
       }
       // Skip the last month label if there is not enough data in that month
       if (index === labels.length - 1) {
-        return weeks.slice(weekIndex).length >= minWeeks
+        return weeks.slice(weekIndex).length >= minWeeks;
       }
-      return true
-    })
+      return true;
+    });
 }
 
-const { username, year = 'last' } = Astro.props
+const { username, year = 'last' } = Astro.props;
 
 // Try to fetch data; if it fails (e.g., network blocked in CI),
 // fall back to an empty last-year calendar so builds don’t fail.
 function makeEmptyLastYear(): GitHubActivityApiResponse {
-  const today = new Date()
-  const start = subWeeks(today, 52)
+  const today = new Date();
+  const start = subWeeks(today, 52);
   const days = eachDayOfInterval({ start, end: today }).map((d) => ({
     date: formatISO(d),
     count: 0,
     level: 0,
-  }))
+  }));
   return {
     contributions: days,
     total: { lastYear: 0 } as any,
-  }
+  };
 }
 
-let data: GitHubActivityApiResponse
+let data: GitHubActivityApiResponse;
 try {
-  data = await fetchData(username, year)
+  data = await fetchData(username, year);
 } catch (err) {
   // Graceful degrade: log on server, render empty calendar
-  console.warn('[GitHubActivityCalendar] fetch failed, using fallback:', err)
-  data = makeEmptyLastYear()
+  console.warn('[GitHubActivityCalendar] fetch failed, using fallback:', err);
+  data = makeEmptyLastYear();
 }
 
 // 为避免第三方返回的 total 与网格求和存在差异，这里直接按网格求和
 // GitHub 主页也以每日贡献累加为准（不含私有贡献时会偏少）
-const maxLevel = 4
-const blockMargin = 4
-const labelMargin = 8
-const blockRadius = 2
-const blockSize = 12
-const fontSize = 14
-const hideColorLegend = false
-const hideMonthLabels = false
-const hideTotalCount = false
-const weekStart = 0 // 0 = Sunday, 1 = Monday, etc.
+const maxLevel = 4;
+const blockMargin = 4;
+const labelMargin = 8;
+const blockRadius = 2;
+const blockSize = 12;
+const fontSize = 14;
+const hideColorLegend = false;
+const hideMonthLabels = false;
+const hideTotalCount = false;
+const weekStart = 0; // 0 = Sunday, 1 = Monday, etc.
 
-const colorScale = calcColorScale()
-const activities = data.contributions
-const totalCount = activities.reduce((s, a) => s + a.count, 0)
+const colorScale = calcColorScale();
+const activities = data.contributions;
+const totalCount = activities.reduce((s, a) => s + a.count, 0);
 const legendColors = range(5).map((i) => {
-  const found = activities.find((a) => a.level === i && a.color)
-  return (found && found.color) || colorScale[i]
-})
+  const found = activities.find((a) => a.level === i && a.color);
+  return (found && found.color) || colorScale[i];
+});
 
-const firstActivity = activities[0]
-const activityYear = getYear(parseISO(firstActivity.date))
-const weeks = groupByWeeks(activities, weekStart)
+const firstActivity = activities[0];
+const activityYear = getYear(parseISO(firstActivity.date));
+const weeks = groupByWeeks(activities, weekStart);
 const labels = {
-  months: [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ],
+  months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   totalCount: `{{count}} contributions in ${year === 'last' ? 'the last year' : '{{year}}'}`,
   legend: {
     less: 'Less',
     more: 'More',
   },
-}
-const labelHeight = hideMonthLabels ? 0 : fontSize + labelMargin
-const width = weeks.length * (blockSize + blockMargin) - blockMargin
-const height = labelHeight + (blockSize + blockMargin) * 7 - blockMargin
+};
+const labelHeight = hideMonthLabels ? 0 : fontSize + labelMargin;
+const width = weeks.length * (blockSize + blockMargin) - blockMargin;
+const height = labelHeight + (blockSize + blockMargin) * 7 - blockMargin;
 ---
 
-<article
-  id="github-activity-calendar"
-  class="w-max max-w-full flex flex-col gap-2 text-sm"
->
+<article id="github-activity-calendar" class="flex w-max max-w-full flex-col gap-2 text-sm">
   <div
     class="max-w-full overflow-x-auto pt-0.5"
     style={{
@@ -396,12 +378,7 @@ const height = labelHeight + (blockSize + blockMargin) * 7 - blockMargin
       scrollbarGutter: 'stable',
     }}
   >
-    <svg
-      class="block visible"
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
-    >
+    <svg class="visible block" width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
       {
         !hideMonthLabels && (
           <g>
@@ -422,7 +399,7 @@ const height = labelHeight + (blockSize + blockMargin) * 7 - blockMargin
         weeks.map((week, weekIndex) => (
           <g transform={`translate(${(blockSize + blockMargin) * weekIndex}, 0)`}>
             {week.map((activity, dayIndex) => {
-              if (!activity) return null
+              if (!activity) return null;
               return (
                 <rect
                   class="stroke-black/10 dark:stroke-white/10"
@@ -436,7 +413,7 @@ const height = labelHeight + (blockSize + blockMargin) * 7 - blockMargin
                   data-date={activity.date}
                   data-level={activity.level}
                 />
-              )
+              );
             })}
           </g>
         ))
@@ -445,7 +422,7 @@ const height = labelHeight + (blockSize + blockMargin) * 7 - blockMargin
   </div>
   {
     !(hideTotalCount && hideColorLegend) && (
-      <footer class="flex flex-col sm:flex-row sm:justify-between gap-x-1 gap-y-2">
+      <footer class="flex flex-col gap-x-1 gap-y-2 sm:flex-row sm:justify-between">
         {!hideTotalCount && (
           <div>
             {labels.totalCount
