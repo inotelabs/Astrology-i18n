@@ -11,14 +11,14 @@ A multilingual photo-and-prose theme built with Astro 5. Ships with 10 languages
 
 <img src="public/screenshot.webp" alt="Astrology-i18n" />
 
-[Live Demo](https://astrology-i18n.vercel.app/)
+[Live Demo](https://astrology-yo7bu6q1.edgeone.app/)
 
 </div>
 
 ## Lighthouse
 
 <p align="center">
-  <a href="https://pagespeed.web.dev/analysis/https-astrology-i18n-vercel-app/0wya1wi9hh?form_factor=mobile">
+  <a href="https://pagespeed.web.dev/analysis/https-astrology-yo7bu6q1-edgeone-app/nij513nbyr?form_factor=mobile">
     <img width="510" alt="Astrology-i18n Lighthouse" src="public/astrology-i18n-lighthouse-score.svg">
   </a>
   <br/>
