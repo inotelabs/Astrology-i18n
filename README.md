@@ -11,7 +11,7 @@ A multilingual photo-and-prose theme built with Astro 5. Ships with 10 languages
 
 <img src="public/screenshot.webp" alt="Astrology-i18n" />
 
-[Live Demo](https://astrology-yo7bu6q1.edgeone.app/)
+[Live Demo](https://astrology-i18n.vercel.app/)
 
 </div>
 
@@ -28,7 +28,7 @@ Scores vary by content and network; treat as indicative.
 
 ## Showcase
 
-- [**iNote**](https://inote.xyz) — A blog about investing, entrepreneurship, and life.
+- [**iNote**](https://inote.world) — A blog about investing, entrepreneurship, and life.
 - Using the theme? Open an issue titled "Showcase Submission" with your site URL and a screenshot to be featured.
 
 ## Features
